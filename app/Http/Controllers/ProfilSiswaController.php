@@ -133,7 +133,7 @@ class ProfilSiswaController extends Controller
         //
         $siswa = Siswa::findOrFail($id);
         $siswa->update(['stats' => '0']);
-        return redirect('manage/karyawan')->with('delete','Data Telah Dihapus.');
+        return redirect('manage/profil_siswa')->with('delete','Data Telah Dihapus.');
     }
 
     public function regencies(){

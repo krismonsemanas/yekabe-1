@@ -28,6 +28,7 @@ class Siswa extends Model
         'village_id',
         'kode_pos',
         'photo',
+        'stats',
         'created_at',
         'updated_at'
     ];

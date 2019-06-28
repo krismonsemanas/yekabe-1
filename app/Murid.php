@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Murid extends Model
 {
     //
-    protected $table = 'data_murid';
+    protected $table = 'murid';
 
     protected $fillable = [
         'periode_id',
@@ -32,6 +32,6 @@ class Murid extends Model
       }
 
       public function Siswa() {
-        return $this->belongsTo('App\Karyawan','siswa_id');
+        return $this->belongsTo('App\Siswa','siswa_id');
       }
 }

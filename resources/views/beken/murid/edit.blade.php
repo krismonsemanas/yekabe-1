@@ -1,19 +1,19 @@
 @extends('tenpureto.beken.index')
 
 @section('seo-title')
-	Ubah Data Guru
+	Ubah Data Siswa Aktif
 @endsection
 
 @section('title')
   <h1>
-    Guru
-    <small>Ubah Data Guru</small>
+    Siswa
+    <small>Ubah Data Siswa Aktif</small>
   </h1>
 @endsection
 
 @section('breadcrumb')
-  <li><a href="#"><i class="fa fa-bullhorn"></i>Guru</a></li>
-  <li class="active">Ubah Data Guru</li>
+  <li><a href="#"><i class="fa fa-bullhorn"></i>Siswa</a></li>
+  <li class="active">Ubah Data Siswa Aktif</li>
 @endsection
 
 @push('css')
@@ -31,12 +31,12 @@
             <div class="box box-default">
             <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Ubah Data Guru</h3>
+              <h3 class="box-title">Ubah Data Siswa Aktif</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                {!! Form::model($guru, ['method' => 'PATCH', 'action' => ['GuruController@update', $guru->id]]) !!}
-                  @include('beken.guru.form', ['submitButtonText' => 'Ubah Data Guru'])
+                {!! Form::model($murid, ['method' => 'PATCH', 'action' => ['MuridController@update', $murid->id]]) !!}
+                  @include('beken.murid.form', ['submitButtonText' => 'Ubah Data Siswa Aktif'])
                 {!! Form::close() !!}
             </div>
             <!-- /.box-body -->

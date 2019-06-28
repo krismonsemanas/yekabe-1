@@ -63,7 +63,7 @@
               {{session()->forget('delete')}}
               @endif
               <div style="margin:10px;">
-                <a href="/manage/guru/new" class="btn btn-block btn-primary btn-lg">Tambah Siswa Pada Tahun Ajaran Tertentu</a>
+                <a href="/manage/murid/new" class="btn btn-block btn-primary btn-lg">Tambah Siswa Pada Tahun Ajaran Tertentu</a>
               </div>
               <hr>
             <div class="box-header">

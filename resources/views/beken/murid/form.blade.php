@@ -1,8 +1,8 @@
 {!! csrf_field() !!}
 <!-- nama	 -->
 
-@if(isset($guru))
-	{!! Form::hidden('id',$guru->id) !!}
+@if(isset($murid))
+	{!! Form::hidden('id',$murid->id) !!}
 @endif
 
 <div>
@@ -45,15 +45,15 @@
 </div>
 <br>
 <div>
-	{!! Form::label('karyawan_id', 'Guru :', ['class' => 'control-label']) !!}
-	@if(count($karyawan)>0)
-    {!! Form::select('karyawan_id', $karyawan, null, ['class' => 'form-control', 'id' => 'karyawan_id', 'placeholder' => '=== Pilih Guru Yang Mengajar ===']) !!}
+	{!! Form::label('siswa_id', 'Siswa :', ['class' => 'control-label']) !!}
+	@if(count($siswa)>0)
+    {!! Form::select('siswa_id', $siswa, null, ['class' => 'form-control', 'id' => 'siswa_id', 'placeholder' => '=== Pilih Siswa ===']) !!}
   @else
-    <p>Data Karyawan tidak ada. Silahkan menghubungi admin untuk membuat daftar Karyawan terlebih dahulu.</p>
+    <p>Data Siswa tidak ada. Silahkan menghubungi admin untuk membuat daftar Siswa terlebih dahulu.</p>
   @endif
 
-  @if($errors->has('karyawan_id'))
-    <span><i><b><font color="red">{{$errors->first('karyawan_id')}}</font></b></i></span><br>
+  @if($errors->has('siswa_id'))
+    <span><i><b><font color="red">{{$errors->first('siswa_id')}}</font></b></i></span><br>
   @endif
 </div>
 <br>

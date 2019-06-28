@@ -90,9 +90,9 @@ class MuridController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $murid = Guru::findOrFail($id);
+        $murid = Murid::findOrFail($id);
         $murid->update($request->all());
-        return redirect('manage/guru')->with('edit','Data Telah Diubah.');
+        return redirect('manage/murid')->with('edit','Data Telah Diubah.');
     }
 
     /**

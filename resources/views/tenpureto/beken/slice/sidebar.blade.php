@@ -47,8 +47,8 @@
           </li>
 
           {{-- siswa --}}
-          
-          <li class="treeview {{ Request::is('manage/siswa') ? 'active' : '' }}">
+
+          <li class="treeview {{ Request::is('manage/siswa') ? 'active' : '' }} class="{{ Request::is('manage/murid') ? 'active' : '' }}"">
             <a href="#">
               <i class="fa fa-male"></i> <span>Siswa</span>
               <span class="pull-right-container">
@@ -57,9 +57,9 @@
             </a>
             <ul class="treeview-menu">
               <li class="{{ Request::is('manage/profil_siswa') ? 'active' : '' }}"><a href="/manage/profil_siswa"><i class="fa fa-circle-o"></i> Profil Siswa</a></li>
-              <li><a href="/manage/siswa"><i class="fa fa-circle-o"></i> Data Siswa</a></li>
+              <li class="{{ Request::is('manage/murid') ? 'active' : '' }} "><a href="/manage/murid"><i class="fa fa-circle-o"></i> Data Siswa</a></li>
             </ul>
-            
+
           </li>
           <li class="{{ Request::is('manage/pengumuman') ? 'active' : '' }}">
             <a href="/manage/pengumuman">

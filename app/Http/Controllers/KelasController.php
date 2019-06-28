@@ -1,0 +1,103 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Kelas;
+use Validator; 
+
+class KelasController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+        $data['kelas'] = Kelas::where('stats',1)->get();
+        return view('beken.kelas.index',$data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //        
+        return view('beken.kelas.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+        $input = $request->all();
+    	  Kelas::create($input);
+        return redirect('manage/kelas')->with('new','Data Baru Telah Dibuat.');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+        $data['kelas'] = Kelas::findOrFail($id);
+        return view('beken.kelas.edit', $data);
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        $kelas = Kelas::findOrFail($id);
+        $input = $request->all();
+        $kelas->update($input);
+        return redirect('manage/kelas')->with('edit','Data Telah Diubah.');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+        $kelas = Kelas::findOrFail($id);
+        $kelas->update(['stats' => '0']);
+        return redirect('manage/kelas')->with('delete','Data Telah Dihapus.');
+    }
+}

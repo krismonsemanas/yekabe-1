@@ -32,7 +32,7 @@
 <br>
 <div>
   {!! Form::label('agama', 'Agama :', ['class' => 'control-label']) !!}
-  {!! Form::select('agama', ['BUDDHA'=>'BUDDHA','HINDU'=>'HINDU','ISLAM'=>'ISLAM','KRISTEN KATOLIK'=>'KRISTEN KATOLIK','KRISTEN KROTESTAN'=>'KRISTEN KROTESTAN','KONG HU CU'=>'KONG HU CU','AGAMA KEPERCAYAAN'=>'AGAMA KEPERCAYAAN'], null, ['class' => 'form-control', 'placeholder' => '=== Pilih Agama ===']) !!}
+  {!! Form::select('agama', ['BUDDHA'=>'BUDDHA','HINDU'=>'HINDU','ISLAM'=>'ISLAM','KRISTEN KATOLIK'=>'KRISTEN KATOLIK','KRISTEN PROTESTAN'=>'KRISTEN PROTESTAN','KONG HU CU'=>'KONG HU CU','AGAMA KEPERCAYAAN'=>'AGAMA KEPERCAYAAN'], null, ['class' => 'form-control', 'placeholder' => '=== Pilih Agama ===']) !!}
 </div>
 <br>
 <div>

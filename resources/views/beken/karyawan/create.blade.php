@@ -54,7 +54,7 @@
   <script src="{{asset('tenpureto/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
   <!-- CK Editor -->
   <script src="{{asset('tenpureto/bower_components/ckeditor/ckeditor.js')}}"></script>
-  
+
   <script>
     $('#datepicker').datepicker({
       autoclose: true
@@ -64,7 +64,7 @@
       $('#provinces').on('change', function(e){
         console.log("test");
         var province_id = e.target.value;
-        $.get('/manage/json-regencies?province_id=' + province_id,function(data) {
+        $.get('/json-regencies?province_id=' + province_id,function(data) {
           console.log(data);
           $('#regencies').empty();
           $('#regencies').append('<option value="0" disable="true" selected="true">=== Pilih Kabupaten ===</option>');
@@ -84,11 +84,11 @@
       $('#regencies').on('change', function(e){
         console.log(e);
         var regencies_id = e.target.value;
-        $.get('/manage/json-districts?regencies_id=' + regencies_id,function(data) {
+        $.get('/json-districts?regencies_id=' + regencies_id,function(data) {
           console.log(data);
           $('#districts').empty();
           $('#districts').append('<option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>');
-          
+
           $('#villages').empty();
           $('#villages').append('<option value="0" disable="true" selected="true">=== Pilih Kelurahan ===</option>');
 
@@ -102,7 +102,7 @@
       $('#districts').on('change', function(e){
         console.log(e);
         var districts_id = e.target.value;
-        $.get('/manage/json-village?districts_id=' + districts_id,function(data) {
+        $.get('/json-village?districts_id=' + districts_id,function(data) {
           console.log(data);
           $('#villages').empty();
           $('#villages').append('<option value="0" disable="true" selected="true">=== Pilih Kelurahan ===</option>');
@@ -116,7 +116,7 @@
       $('#villages').on('change', function(e){
         console.log(e);
         var villages_id = e.target.value;
-        $.get('/manage/json-pos?villages_id=' + villages_id,function(data) {
+        $.get('/json-pos?villages_id=' + villages_id,function(data) {
           console.log(data);
           $('#kode_pos').empty();
           $('#kode_pos').append('');

@@ -94,7 +94,7 @@ Route::get('/json-village', 'KaryawanController@villages');
 Route::get('/json-pos', 'KaryawanController@pos');
 
 Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
-    Route::get('/','DashboardGuruController@index');
+    Route::get('/','DashboardGuruController@index')->name('dashboard.guru');
 
     Route::get('/profil-saya','ProfileKaryawanController@edit')->name('guru.profil.edit');
     Route::patch('/profil-saya','ProfileKaryawanController@update')->name('guru.profil.update');

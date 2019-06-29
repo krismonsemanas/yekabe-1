@@ -46,12 +46,12 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="{{ Request::is('manage/dashboard') ? 'active' : '' }}">
-          <a href="/manage/dashboard">
-            <i class="fa fa-dashboard"></i> <span>Beranda</span>
-          </a>
-        </li>
         @if(auth()->user()->level == 'ADMIN')
+			<li class="{{ Request::is('manage/dashboard') ? 'active' : '' }}">
+				<a href="/manage/dashboard">
+					<i class="fa fa-dashboard"></i> <span>Beranda</span>
+				</a>
+			</li>
           <li class="treeview {{ Request::is('manage/karyawan') ? 'active' : '' }} {{ Request::is('manage/karyawan/new') ? 'active' : '' }} {{ Request::is('manage/karyawan/edit') ? 'active' : '' }}">
             <a href="#">
               <i class="fa fa-users"></i> <span>Karyawan</span>
@@ -88,7 +88,19 @@
               <i class="fa fa-bullhorn"></i> <span>Pengumuman</span>
             </a>
           </li>
-        @endif
+			@endif
+            @if(auth()->user()->level == 'GURU')
+                <li class="{{ Request::is('guru') ? 'active' : '' }}">
+                    <a href="/guru">
+                        <i class="fa fa-dashboard"></i> <span>Beranda</span>
+                    </a>
+                </li>
+				<li class="{{ Request::is('manage/pengumuman') ? 'active' : '' }}">
+					<a href="/guru/absen">
+						<i class="fa fa-bullhorn"></i> <span>Absen</span>
+					</a>
+				</li>
+			@endif
         <li class="header">PENGATURAN</li>
         @if(auth()->user()->level == 'ADMIN')
           <li class="{{ Request::is('manage/periode') ? 'active' : '' }} {{ Request::is('manage/periode/new') ? 'active' : '' }} {{ Request::is('manage/periode/edit') ? 'active' : '' }}"><a href="/manage/periode"><i class="fa fa-calendar text-aqua"></i> <span>Periode</span></a></li>

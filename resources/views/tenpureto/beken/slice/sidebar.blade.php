@@ -4,13 +4,33 @@
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
-        <div class="pull-left image">
+        @if(auth()->user()->level == 'ADMIN')
+            <div class="pull-left image">
+                <img src="{{asset('tenpureto/dist/img/images.jpg')}}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+              <p>ADMINISTRATOR</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> ADMIN</a>
+            </div>
+        @endif
+        @if(auth()->user()->level == 'GURU')
+            <div class="pull-left image">
+                <img src="{{asset('/photo/teacher/'.auth()->user()->karyawan->photo )}}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{{auth()->user()->karyawan->nama}}</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> GURU</a>
+            </div>
+        @endif
+
+        {{-- <div class="pull-left image">
           <img src="{{asset('tenpureto/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Arif Setiawan</p>
           <a href="#"><i class="fa fa-circle text-success"></i> ADMIN</a>
-        </div>
+        </div> --}}
+
       </div>
       <!-- search form -->
       <form action="#" method="get" class="sidebar-form">

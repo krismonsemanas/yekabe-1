@@ -15,7 +15,7 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
+          {{-- <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
@@ -211,25 +211,37 @@
                 <a href="#">View all tasks</a>
               </li>
             </ul>
-          </li>
+          </li> --}}
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{asset('tenpureto/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Arif Setiawan</span>
+                @if(auth()->user()->level == 'ADMIN')
+                    <img src="{{asset('tenpureto/dist/img/images.jpg')}}" class="user-image" alt="User Image">
+                    <span class="hidden-xs">ADMINISTRATOR</span>
+                @endif
+                @if(auth()->user()->level == 'GURU')
+                    <img src="{{asset('/photo/teacher/'.auth()->user()->karyawan->photo )}}" class="user-image" alt="User Image">
+                    <span class="hidden-xs">{{auth()->user()->karyawan->nama}}</span>
+                @endif
+              {{-- <img src="{{asset('tenpureto/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image"> --}}
+              {{-- <span class="hidden-xs">Arif Setiawan</span> --}}
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{asset('tenpureto/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
-
-                <p>
-                  Arif Setiawan | WEB DEVELOPER
-                  <small>Member since Jun. 2019</small>
-                </p>
+                    @if(auth()->user()->level == 'ADMIN')
+                        <img src="{{asset('tenpureto/dist/img/images.jpg')}}" class="img-circle" alt="User Image">
+                        <p>ADMINISTRATOR</p>
+                    @endif
+                    @if(auth()->user()->level == 'GURU')
+                        <img src="{{asset('/photo/teacher/'.auth()->user()->karyawan->photo )}}" class="img-circle" alt="User Image">
+                        <p>{{auth()->user()->karyawan->nama}}</p>
+                    @endif
+                  {{-- Arif Setiawan | WEB DEVELOPER
+                  <small>Member since Jun. 2019</small> --}}
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+              {{-- <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -242,14 +254,14 @@
                   </div>
                 </div>
                 <!-- /.row -->
-              </li>
+              </li> --}}
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
+                {{-- <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
+                </div> --}}
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="#" class="btn btn-default btn-flat">Logout</a>
                 </div>
               </li>
             </ul>
@@ -259,7 +271,7 @@
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li> -->
           <li style="margin-right:10px;">
-            
+
           </li>
         </ul>
       </div>

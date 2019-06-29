@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], function () {
     Route::get('/dashboard','DashboardController@index');
+    Route::post('/dashboard/verif/{kategori}', 'DashboardController@update');
+
 
     Route::get('/karyawan','KaryawanController@index');
     Route::get('/karyawan/new','KaryawanController@create');

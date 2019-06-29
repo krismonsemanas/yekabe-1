@@ -47,7 +47,7 @@
           </li>
 
           {{-- siswa --}}
-          
+
           <li class="treeview {{ Request::is('manage/siswa') ? 'active' : '' }}">
             <a href="#">
               <i class="fa fa-male"></i> <span>Siswa</span>
@@ -59,7 +59,7 @@
               <li class="{{ Request::is('manage/profil_siswa') ? 'active' : '' }}"><a href="/manage/profil_siswa"><i class="fa fa-circle-o"></i> Profil Siswa</a></li>
               <li><a href="/manage/siswa"><i class="fa fa-circle-o"></i> Data Siswa</a></li>
             </ul>
-            
+
           </li>
           <li class="{{ Request::is('manage/pengumuman') ? 'active' : '' }}">
             <a href="/manage/pengumuman">
@@ -78,8 +78,9 @@
           <li class="{{ Request::is('guru/ubah-password') ? 'active' : ''}}"><a href="{{route('guru.password.edit')}}"><i class="fa fa-lock text-aqua"></i> <span>Ubah Password</span></a></li>
         @endif
         <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-reply"></i> <span>LOGOUT | KELUAR</span>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none">
             @csrf
+            <button type="submit" >Logout</button>
         </form>
       </ul>
     </section>

@@ -58,7 +58,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:karyawan'],
             'password' => ['required', 'string', 'min:8'],
             'password_conf' => ['required','same:password'],
-            'phone' => ['required', 'numeric'],
+            'phone' => ['required', 'numeric','unique:karyawan'],
             'province_id' => ['required'],
             'city_id' => ['required'],
             'district_id' => ['required'],
@@ -92,42 +92,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        User::create([
+        return User::create([
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
             'level' => 'GURU',
             'status' => 'PENDING',
         ]);
-        $cekId = User::orderBy('id','desc')->first();
-        Karyawan::create([
-            'nama' => $data['nama'],
-            'nip' => $data['nip'],
-            'kelamin' => $data['kelamin'],
-            'agama' => $data['agama'],
-            'tempat_lahir' => $data['tempat_lahir'],
-            'tanggal_lahir' => $data['tanggal_lahir'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'alamat' => $data['alamat'],
-            'province_id' => $data['province_id'],
-            'city_id' => $data['city_id'],
-            'district_id' => $data['district_id'],
-            'village_id' => $data['village_id'],
-            'kode_pos' => $data['kode_pos'],
-            'tmt' => $data['tmt'],
-            'sk_pertama' => $data['sk_pertama'],
-            'nuptk' => $data['nuptk'],
-            'nrg' => $data['nrg'],
-            'sertifikat_pendidik' => $data['sertifikat_pendidik'],
-            'kode_sertifikat_mp' => $data['kode_sertifikat_mp'],
-            'ijazah_terakhir' => $data['ijazah_terakhir'],
-            'nomor_ijazah' => $data['nomor_ijazah'],
-            'jurusan' => $data['jurusan'],
-            'program_studi' => $data['program_studi'],
-            'photo' => $data['photo'],
-            'id_login' => $cekId['id'],
-        ]);
-        return redirect('register');
     }
 
     public function showRegistrationForm()

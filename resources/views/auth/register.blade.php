@@ -33,20 +33,23 @@
             <div class="p-5">
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Register</h1>
+                @if (session('success'))
+                    <div class="alert alert-success">{{session('success')}}</div>
+                @endif
               </div>
               <form class="user" action="{{route('register')}}" enctype="multipart/form-data" method="POST">
                   @csrf
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <input type="text" name="username" class="form-control form-control-user"  placeholder="Username Anda">
+                        <input type="text" name="username" value="{{old('username')}}" class="form-control form-control-user"  placeholder="Username Anda">
                         @error('username') <small class=" text-danger">{{ $message }}</small> @enderror
                     </div>
                     <div class="col-sm-3 mb-1 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" name="email" placeholder="Email anda">
+                        <input type="text" value="{{old('email')}}" class="form-control form-control-user" name="email" placeholder="Email anda">
                         @error('email') <small class=" text-danger">{{ $message }}</small> @enderror
                       </div>
                       <div class="col-sm-3 mb-1 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" name="phone" placeholder="No Hp anda">
+                        <input type="text"  value="{{old('phone')}}" class="form-control form-control-user" name="phone" placeholder="No Hp anda">
                         @error('phone') <small class=" text-danger">{{ $message }}</small> @enderror
                     </div>
                 </div>
@@ -57,6 +60,7 @@
                 </div>
                 <div class="col-sm-3">
                     <input type="password" name="password_conf" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Konfirmasi Password">
+                    @error('password_conf') <small class=" text-danger">{{ $message }}</small> @enderror
                 </div>
                   <div class="col-sm-3 mb-1 mb-sm-0">
                         <select class="form-control" name="province_id" id="provinces">
@@ -76,7 +80,7 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-1 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" name="nama" placeholder="Nama anda (beserta gelar)">
+                        <input type="text"  value="{{old('nama')}}" class="form-control form-control-user" name="nama" placeholder="Nama anda (beserta gelar)">
                         @error('nama') <small class=" text-danger">{{ $message }}</small> @enderror
                   </div>
                   <div class="col-sm-3 mb-1 mb-sm-0">
@@ -94,7 +98,7 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-1 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="nip" placeholder="Nip anda">
+                    <input type="text" value="{{old('nip')}}" class="form-control form-control-user" name="nip" placeholder="Nip anda">
                     @error('nip') <small class=" text-danger">{{ $message }}</small> @enderror
                   </div>
                   <div class="col-sm-3 mb-1 mb-sm-0">
@@ -102,28 +106,28 @@
                         @error('kode_pos') <small class=" text-danger">{{ $message }}</small> @enderror
                   </div>
                   <div class="col-sm-3 mb-1 mb-sm-0">
-                        <input type="text" name="tmt" class="form-control form-control-user" placeholder="TMT">
+                        <input type="text"  value="{{old('tmt')}}" name="tmt" class="form-control form-control-user" placeholder="TMT">
                         @error('tmt') <small class=" text-danger">{{ $message }}</small> @enderror
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-1 mb-sm-0">
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" value="LAKI-LAKI" name="kelamin" class="custom-control-input">
+                            <input type="radio" @if (old('kelamin') == 'LAKI-LAKI') checked @endif id="customRadioInline1" value="LAKI-LAKI" name="kelamin" class="custom-control-input">
                             <label class="custom-control-label" for="customRadioInline1">Laki-laki</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline2" value="PEREMPUAN" name="kelamin" class="custom-control-input">
+                            <input type="radio" @if (old('kelamin') == 'PEREMPUAN') checked @endif id="customRadioInline2" value="PEREMPUAN" name="kelamin" class="custom-control-input">
                             <label class="custom-control-label" for="customRadioInline2">Perempuan</label>
                         </div>
                         @error('kelamin') <small class=" text-danger">{{ $message }}</small> @enderror
                   </div>
                   <div class="col-sm-3 mb-1 mb-sm-0">
-                      <input type="text" name="sk_pertama" placeholder="SK Pertama" class="form-control form-control-user">
+                      <input type="text" value="{{old('tmt')}}" name="sk_pertama" placeholder="SK Pertama" class="form-control form-control-user">
                       @error('sk_pertama') <small class=" text-danger">{{ $message }}</small> @enderror
                   </div>
                   <div class="col-sm-3 mb-1 mb-sm-0">
-                      <input type="text" name="nuptk" placeholder="NUPTK" class="form-control form-control-user">
+                      <input type="text" value="{{old('nuptk')}}" name="nuptk" placeholder="NUPTK" class="form-control form-control-user">
                       @error('nuptk') <small class=" text-danger">{{ $message }}</small> @enderror
                   </div>
                 </div>
@@ -131,60 +135,60 @@
                   <div class="col-sm-6 mb-1 mb-sm-0">
                         <select class="form-control" name="agama">
                             <option value="" selected="true">-- Pilih Salah Satu --</option>
-                            <option value="ISLAM">Islam</option>
-                            <option value="KRISTEN KATOLIK">Kristen Katolik</option>
-                            <option value="KRISTEN PROTESTAN">Kristen Protestan</option>
-                            <option value="HINDU">Hindu</option>
-                            <option value="BUDDHA">Budha</option>
-                            <option value="KONG HU CU">Kong Hu Cu</option>
-                            <option value="AGAMA KEPERCAYAAN">Kepercayaan</option>
+                            <option value="ISLAM" @if(old('agama') == 'ISLAM') selected @endif>Islam</option>
+                            <option value="KRISTEN KATOLIK" @if(old('agama') == 'KRISTEN KATOLIK') selected @endif>Kristen Katolik</option>
+                            <option value="KRISTEN PROTESTAN" @if(old('agama') == 'KRISTEN PROTESTAN') selected @endif>Kristen Protestan</option>
+                            <option value="HINDU" @if(old('agama') == 'HINDU') selected @endif>Hindu</option>
+                            <option value="BUDDHA" @if(old('agama') == 'BUDDHA') selected @endif>Budha</option>
+                            <option value="KONG HU CU" @if(old('agama') == 'KONG HU CU') selected @endif>Kong Hu Cu</option>
+                            <option value="AGAMA KEPERCAYAAN" @if(old('agama') == 'AGAMA KEPERCAYAAN') selected @endif>Kepercayaan</option>
                         </select>
                         @error('agama') <small class=" text-danger">{{ $message }}</small> @enderror
                   </div>
                     <div class="col-sm-3 mb-1 mb-sm-0">
-                        <input type="text" name="nrg" placeholder="NRG" class="form-control form-control-user">
+                        <input type="text" value="{{old('nrg')}}" name="nrg" placeholder="NRG" class="form-control form-control-user">
                         @error('nrg') <small class=" text-danger">{{ $message }}</small> @enderror
                     </div>
                     <div class="col-sm-3 mb-1 mb-sm-0">
-                        <input type="text" name="sertifikat_pendidik" placeholder="Sertifikat Pendidik" class="form-control form-control-user">
+                        <input type="text" value="{{old('sertifikat_pendidik')}}" name="sertifikat_pendidik" placeholder="Sertifikat Pendidik" class="form-control form-control-user">
                         @error('sertifikat_pendidik') <small class=" text-danger">{{ $message }}</small> @enderror
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-3 mb-1 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" name="tempat_lahir" placeholder="Tempat Lahir">
+                        <input type="text" value="{{old('tempat_lahir')}}" class="form-control form-control-user" name="tempat_lahir" placeholder="Tempat Lahir">
                         @error('tempat_lahir') <small class="text-10 text-danger">{{ $message }}</small> @enderror
                     </div>
                     <div class="col-sm-3 mb-1 mb-sm-0">
-                        <input type="date" class="form-control form-control-user" name="tanggal_lahir" placeholder="Tanggal Lahir">
+                        <input type="date" value="{{old('tanggal_lahir')}}" class="form-control form-control-user" name="tanggal_lahir" placeholder="Tanggal Lahir">
                         @error('tanggal_lahir') <small class="text-10 text-danger">{{ $message }}</small> @enderror
                     </div>
                     <div class="col-sm-3 mb-1 mb-sm-0">
-                        <input type="text" name="kode_sertifikat_mp" placeholder="Kode Serifikat MP" class="form-control form-control-user">
+                        <input type="text" value="{{old('kode_sertifikat_mp')}}" name="kode_sertifikat_mp" placeholder="Kode Serifikat MP" class="form-control form-control-user">
                         @error('kode_sertifikat_mp') <small class="text-10 text-danger">{{ $message }}</small> @enderror
                     </div>
                     <div class="col-sm-3 mb-1 mb-sm-0">
-                        <input type="text" name="ijazah_terakhir" placeholder="Ijazah Terakhir" class="form-control form-control-user">
+                        <input type="text" value="{{old('ijazah_terakhir')}}" name="ijazah_terakhir" placeholder="Ijazah Terakhir" class="form-control form-control-user">
                         @error('ijazah_terakhir') <small class="text-10 text-danger">{{ $message }}</small> @enderror
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <textarea name="alamat" cols="30" rows="1" class="form-control form-control-user" placeholder="Alamat anda"></textarea>
+                        <textarea name="alamat" cols="30" rows="1" class="form-control form-control-user" placeholder="Alamat anda">{{old('alamat')}}</textarea>
                         @error('alamat') <small class="text-10 text-danger">{{ $message }}</small> @enderror
                     </div>
                     <div class="col-sm-6 mb-1 mb-sm-0">
-                        <input type="text" name="nomor_ijazah" placeholder="Nomor Ijazah" class="form-control form-control-user">
+                        <input type="text" name="nomor_ijazah" value="{{old('nomor_ijazah')}}" placeholder="Nomor Ijazah" class="form-control form-control-user">
                         @error('nomor_ijazah') <small class="text-10 text-danger">{{ $message }}</small> @enderror
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6 mb-1 mb-sm-3">
-                        <input type="text" name="jurusan" class="form-control form-control-user" placeholder="Jurusan">
+                        <input type="text" value="{{old('jurusan')}}" name="jurusan" class="form-control form-control-user" placeholder="Jurusan">
                         @error('jurusan') <small class="text-10 text-danger">{{ $message }}</small> @enderror
                     </div>
                     <div class="col-sm-6 mb-1 mb-sm-3">
-                        <input type="text" name="program_studi" class="form-control form-control-user" placeholder="Program Studi">
+                        <input type="text" value="{{old('program_studi')}}" name="program_studi" class="form-control form-control-user" placeholder="Program Studi">
                         @error('program_studi') <small class="text-10 text-danger">{{ $message }}</small> @enderror
                     </div>
                 </div>

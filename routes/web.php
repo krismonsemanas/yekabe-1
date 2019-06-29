@@ -20,13 +20,9 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], function () {
     Route::get('/dashboard','DashboardController@index');
-    
+
     Route::get('/karyawan','KaryawanController@index');
     Route::get('/karyawan/new','KaryawanController@create');
-    Route::get('/json-regencies','KaryawanController@regencies');
-    Route::get('/json-districts', 'KaryawanController@districts');
-    Route::get('/json-village', 'KaryawanController@villages');
-    Route::get('/json-pos', 'KaryawanController@pos');
     Route::post('/karyawan', 'KaryawanController@store');
     Route::get('/karyawan/{kategori}/edit', 'KaryawanController@edit');
     Route::patch('/karyawan/{kategori}', 'KaryawanController@update');
@@ -60,14 +56,14 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::get('/periode/{kategori}/edit', 'PeriodeController@edit');
     Route::patch('/periode/{kategori}', 'PeriodeController@update');
     Route::post('/periode/delete/{id}', 'PeriodeController@destroy');
-    
+
     Route::get('/kelas','KelasController@index');
     Route::get('/kelas/new','KelasController@create');
     Route::post('/kelas', 'KelasController@store');
     Route::get('/kelas/{kategori}/edit', 'KelasController@edit');
     Route::patch('/kelas/{kategori}', 'KelasController@update');
     Route::post('/kelas/delete/{id}', 'KelasController@destroy');
-    
+
     Route::get('/mapel','MapelController@index');
     Route::get('/mapel/new','MapelController@create');
     Route::post('/mapel', 'MapelController@store');
@@ -80,13 +76,17 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::get('/profil_siswa','ProfilSiswaController@index');
     Route::get('/profil_siswa/new','ProfilSiswaController@create');
     Route::post('/profil_siswa', 'ProfilSiswaController@store');
-    Route::get('/json-regencies','KaryawanController@regencies');
-    Route::get('/json-districts', 'KaryawanController@districts');
-    Route::get('/json-village', 'KaryawanController@villages');
-    Route::get('/json-pos', 'KaryawanController@pos');
     Route::get('/profil_siswa/{kategori}/edit', 'ProfilSiswaController@edit');
     Route::patch('/profil_siswa/{kategori}', 'ProfilSiswaController@update');
     Route::post('/profil_siswa/delete/{id}', 'ProfilSiswaController@destroy');
+
+    Route::get('/murid','MuridController@index');
+    Route::get('/murid/new','MuridController@create');
+    Route::post('/murid', 'MuridController@store');
+    Route::get('/murid/{kategori}/edit', 'MuridController@edit');
+    Route::patch('/murid/{kategori}', 'MuridController@update');
+    Route::post('/murid/delete/{id}', 'MuridController@destroy');
+
 });
 
 Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
@@ -103,6 +103,12 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
 
 
 Auth::routes();
+
+
+Route::get('/json-regencies','KaryawanController@regencies');
+Route::get('/json-districts', 'KaryawanController@districts');
+Route::get('/json-village', 'KaryawanController@villages');
+Route::get('/json-pos', 'KaryawanController@pos');
 
 
 

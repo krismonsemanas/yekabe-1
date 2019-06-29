@@ -131,6 +131,9 @@ class ProfilSiswaController extends Controller
     public function destroy($id)
     {
         //
+        $siswa = Siswa::findOrFail($id);
+        $siswa->update(['stats' => '0']);
+        return redirect('manage/profil_siswa')->with('delete','Data Telah Dihapus.');
     }
 
     public function regencies(){
@@ -138,13 +141,13 @@ class ProfilSiswaController extends Controller
         $regencies = City::where('city_province_id', '=', $provinces_id)->get();
         return response()->json($regencies);
     }
-  
+
      public function districts(){
         $regencies_id = Input::get('regencies_id');
         $districts = District::where('district_city_id', '=', $regencies_id)->get();
         return response()->json($districts);
     }
-  
+
     public function villages(){
         $districts_id = Input::get('districts_id');
         $villages = Village::where('village_district_id', '=', $districts_id)->get();

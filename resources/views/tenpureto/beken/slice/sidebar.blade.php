@@ -4,13 +4,33 @@
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
-        <div class="pull-left image">
+        @if(auth()->user()->level == 'ADMIN')
+            <div class="pull-left image">
+                <img src="{{asset('tenpureto/dist/img/images.jpg')}}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+              <p>ADMINISTRATOR</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> ADMIN</a>
+            </div>
+        @endif
+        @if(auth()->user()->level == 'GURU')
+            <div class="pull-left image">
+                <img src="{{asset('/photo/teacher/'.auth()->user()->karyawan->photo )}}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{{auth()->user()->karyawan->nama}}</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> GURU</a>
+            </div>
+        @endif
+
+        {{-- <div class="pull-left image">
           <img src="{{asset('tenpureto/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Arif Setiawan</p>
           <a href="#"><i class="fa fa-circle text-success"></i> ADMIN</a>
-        </div>
+        </div> --}}
+
       </div>
       <!-- search form -->
       <form action="#" method="get" class="sidebar-form">
@@ -49,6 +69,8 @@
           {{-- siswa --}}
 
           <li class="treeview {{ Request::is('manage/siswa') ? 'active' : '' }}">
+          <li class="treeview {{ Request::is('manage/siswa') ? 'active' : '' }} class="{{ Request::is('manage/murid') ? 'active' : '' }}"">
+
             <a href="#">
               <i class="fa fa-male"></i> <span>Siswa</span>
               <span class="pull-right-container">
@@ -57,7 +79,7 @@
             </a>
             <ul class="treeview-menu">
               <li class="{{ Request::is('manage/profil_siswa') ? 'active' : '' }}"><a href="/manage/profil_siswa"><i class="fa fa-circle-o"></i> Profil Siswa</a></li>
-              <li><a href="/manage/siswa"><i class="fa fa-circle-o"></i> Data Siswa</a></li>
+              <li class="{{ Request::is('manage/murid') ? 'active' : '' }} "><a href="/manage/murid"><i class="fa fa-circle-o"></i> Data Siswa</a></li>
             </ul>
 
           </li>
@@ -77,8 +99,13 @@
           <li class="{{ Request::is('guru/profil-saya') ? 'active' : ''}}"><a href="{{route('guru.profil.edit')}}"><i class="fa fa-user text-aqua"></i> <span>Profil</span></a></li>
           <li class="{{ Request::is('guru/ubah-password') ? 'active' : ''}}"><a href="{{route('guru.password.edit')}}"><i class="fa fa-lock text-aqua"></i> <span>Ubah Password</span></a></li>
         @endif
+
         <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-reply"></i> <span>LOGOUT | KELUAR</span>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none">
+
+        <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-reply"></i> <span>LOGOUT | KELUAR</span></a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
             @csrf
             <button type="submit" >Logout</button>
         </form>

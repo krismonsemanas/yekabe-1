@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], function () {
     Route::get('/dashboard','DashboardController@index');
+    Route::post('/dashboard/verif/{kategori}', 'DashboardController@update');
+
 
     Route::get('/karyawan','KaryawanController@index');
     Route::get('/karyawan/new','KaryawanController@create');
@@ -88,10 +90,6 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::post('/murid/delete/{id}', 'MuridController@destroy');
 
 });
-Route::get('/json-regencies','KaryawanController@regencies');
-Route::get('/json-districts', 'KaryawanController@districts');
-Route::get('/json-village', 'KaryawanController@villages');
-Route::get('/json-pos', 'KaryawanController@pos');
 
 Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::get('/','DashboardGuruController@index')->name('dashboard.guru');
@@ -101,6 +99,13 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
 
     Route::get('/ubah-password','ProfileKaryawanController@editPassword')->name('guru.password.edit');
     Route::patch('/ubah-password','ProfileKaryawanController@updatePassword')->name('guru.password.update');
+
+    Route::get('/absen','AbsenGuruController@index');
+    Route::get('/absen/new','AbsenGuruController@create');
+    Route::post('/absen', 'AbsenGuruController@store');
+    Route::get('/absen/{kategori}/edit', 'AbsenGuruController@edit');
+    Route::patch('/absen/{kategori}', 'AbsenGuruController@update');
+    Route::post('/absen/delete/{id}', 'AbsenGuruController@destroy');
 
 });
 

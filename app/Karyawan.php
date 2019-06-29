@@ -65,4 +65,10 @@ class Karyawan extends Model
       return $this->hasMany('App\Kayawan','karyawan_id');
     }
 
+    public function User() {
+        return $this->belongsTo('App\User','id_user');
+    }
+
+
+
 }

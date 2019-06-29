@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Guru;
 use App\Karyawan;
-use App\Siswa;
-use App\User;
+use Auth;
 
-class DashboardController extends Controller
+
+class AbsenGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +18,9 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        $data['allkaryawan'] = Karyawan::where('stats',1)->get();
-        $data['countkaryawan'] = $data['allkaryawan']->count();
-        $data['allsiswa'] = Siswa::where('stats',1)->get();
-        $data['countsiswa'] = $data['allsiswa']->count();
-        $data['pending'] = User::where('status','PENDING')->get();
-        return view('beken.dashboard',$data);
+        $user = Auth::user()->load('karyawan');
+        $data['guru'] = Guru::where('karyawan_id',$user->karyawan->id)->where('active','1')->get();
+        return view('beken.absen.index',$data);
     }
 
     /**
@@ -78,8 +76,6 @@ class DashboardController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $user = User::findOrFail($id)->update(['status' => 'ACTIVE']);
-        return redirect('manage/dashboard')->with('edit','Data Telah Terverifikasi.');
     }
 
     /**

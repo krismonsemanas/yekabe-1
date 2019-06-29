@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Input;
+use Storage;
 use App\User;
+use App\Karyawan;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Province;
+use Symfony\Component\Routing\Loader\Configurator\Traits\RouteTrait;
 
 class RegisterController extends Controller
 {
@@ -49,9 +53,34 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nama' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string','min:8', 'max:255','unique:login_app'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:karyawan'],
+            'password' => ['required', 'string', 'min:8'],
+            'password_conf' => ['required','same:password'],
+            'phone' => ['required', 'numeric','unique:karyawan'],
+            'province_id' => ['required'],
+            'city_id' => ['required'],
+            'district_id' => ['required'],
+            'village_id' => ['required'],
+            'nip' => ['required','numeric'],
+            'kode_pos' => ['required','numeric'],
+            'tmt' => ['required'],
+            'kelamin' => ['required'],
+            'sk_pertama' => ['required'],
+            'nuptk' => ['required'],
+            'agama' => ['required'],
+            'nrg' => ['required'],
+            'sertifikat_pendidik' => ['required'],
+            'kode_sertifikat_mp' => ['required'],
+            'tempat_lahir' => ['required'],
+            'tanggal_lahir' => ['required'],
+            'ijazah_terakhir' => ['required'],
+            'alamat' => ['required'],
+            'nomor_ijazah' => ['required'],
+            'jurusan' => ['required'],
+            'program_studi' => ['required'],
+            'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png'
         ]);
     }
 
@@ -64,9 +93,16 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
+            'level' => 'GURU',
+            'status' => 'PENDING',
         ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        $data['province'] = Province::all();
+        return view('auth.register',$data);
     }
 }

@@ -35,6 +35,7 @@ class Karyawan extends Model
         'jurusan',
         'program_studi',
         'photo',
+        'id_login',
         'stats',
         'created_at',
         'updated_at'
@@ -58,7 +59,7 @@ class Karyawan extends Model
 
     public function Guru() {
       return $this->hasMany('App\Guru','karyawan_id');
-    }  
+    }
 
     public function Wali() {
       return $this->hasMany('App\Kayawan','karyawan_id');

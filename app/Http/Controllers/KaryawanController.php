@@ -10,7 +10,7 @@ use App\Province;
 use App\City;
 use App\District;
 use App\Village;
-
+use Illuminate\Support\Facades\Validator;
 class KaryawanController extends Controller
 {
     /**
@@ -36,16 +36,17 @@ class KaryawanController extends Controller
         $data['province'] = Province::all();
         return view('beken.karyawan.create',$data);
     }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */ 
+     */
     public function store(Request $request)
     {
-        //
+       $request->validate([
+            'nama' => 'required',
+        ]);
         $input = $request->all();
         $input['tanggal_lahir'] = date('Y-m-d',strtotime($input['tanggal_lahir']));
         if($request->hasFile('photo')){
@@ -141,13 +142,13 @@ class KaryawanController extends Controller
         $regencies = City::where('city_province_id', '=', $provinces_id)->get();
         return response()->json($regencies);
     }
-  
+
      public function districts(){
         $regencies_id = Input::get('regencies_id');
         $districts = District::where('district_city_id', '=', $regencies_id)->get();
         return response()->json($districts);
     }
-  
+
     public function villages(){
         $districts_id = Input::get('districts_id');
         $villages = Village::where('village_district_id', '=', $districts_id)->get();

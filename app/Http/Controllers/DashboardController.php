@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Karyawan;
+use App\Siswa;
 
 class DashboardController extends Controller
 {
@@ -14,7 +16,11 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        return view('beken.dashboard');
+        $data['allkaryawan'] = Karyawan::where('stats',1)->get();
+        $data['countkaryawan'] = $data['allkaryawan']->count();
+        $data['allsiswa'] = Siswa::where('stats',1)->get();
+        $data['countsiswa'] = $data['allsiswa']->count();
+        return view('beken.dashboard',$data);
     }
 
     /**

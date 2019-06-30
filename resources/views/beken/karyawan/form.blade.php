@@ -90,7 +90,7 @@
         <select class="form-control" name="province_id" id="provinces">
           <option value="0" disable="true" selected="true">=== Pilih Provinsi ===</option>
             @foreach ($province as $key => $value)
-              <option value="{{$value->province_id}}" selected="{{ $karyawan->province_id == $value->province_id ? 'selected' : '' }}" }}>{{ $value->province_name }}</option>
+              <option value="{{$value->province_id}}" @if($karyawan->province_id == $value->province_id) selected @endif >{{ $value->province_name }}</option>
             @endforeach
         </select>
       </div>
@@ -99,7 +99,7 @@
         <select class="form-control" name="city_id" id="regencies">
           <option value="0" disable="true" selected="true">=== Pilih Kabupaten ===</option>
           @foreach ($city as $key => $value)
-            <option value="{{$value->city_id}}" selected="{{ $karyawan->city_id == $value->city_id ? 'selected' : '' }}" }}>{{ $value->city_name }}</option>
+            <option value="{{$value->city_id}}" @if($karyawan->city_id == $value->city_id) selected @endif>{{ $value->city_name }}</option>
           @endforeach
         </select>
       </div>
@@ -108,7 +108,7 @@
         <select class="form-control" name="district_id" id="districts">
           <option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>
           @foreach ($district as $key => $value)
-            <option value="{{$value->district_id}}" selected="{{ $karyawan->district_id == $value->district_id ? 'selected' : '' }}" }}>{{ $value->district_name }}</option>
+            <option value="{{$value->district_id}}" @if($karyawan->district_id == $value->district_id) selected @endif >{{ $value->district_name }}</option>
           @endforeach
         </select>
       </div>
@@ -117,7 +117,7 @@
         <select class="form-control" name="village_id" id="villages">
           <option value="0" disable="true" selected="true">=== Pilih Kelurahan ===</option>
           @foreach ($village as $key => $value)
-            <option value="{{$value->village_id}}" selected="{{ $karyawan->village_id == $value->village_id ? 'selected' : '' }}" }}>{{ $value->village_name }}</option>
+            <option value="{{$value->village_id}}" @if($karyawan->village_id == $value->village_id) selected @endif >{{ $value->village_name }}</option>
           @endforeach
         </select>
       </div>
@@ -212,12 +212,8 @@
         @error('program_studi') <span class="text-danger">{{ $message }}</span> @enderror
     </div>
     <div class="col-sm-3">
-      @if($errors->any())
-        <div class="form-group {{$errors->has('photo') ? 'has-error' : 'has-success'}}">
-      @else
-        {!! Form::label('photo','Foto :') !!}
-        {!! Form::file('photo') !!}
-      @endif
+      {!! Form::label('photo','Foto :') !!}
+      {!! Form::file('photo') !!}
       @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
     </div>
 </div>

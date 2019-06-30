@@ -57,7 +57,7 @@ class KaryawanController extends Controller
             'city_id' => ['required'],
             'district_id' => ['required'],
             'village_id' => ['required'],
-            'nip' => ['required','numeric'],
+            'nip' => ['required','numeric','unique:karyawan'],
             'kode_pos' => ['required','numeric'],
             'tmt' => ['required'],
             'kelamin' => ['required'],
@@ -99,7 +99,6 @@ class KaryawanController extends Controller
     	Karyawan::create($input);
         return redirect('manage/karyawan')->with('new','Data Baru Telah Dibuat.');
     }
-
     /**
      * Display the specified resource.
      *
@@ -137,7 +136,38 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validasi sebelum di update
+        $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string','min:8', 'max:255','unique:login_app'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:karyawan'],
+            'password' => ['required', 'string', 'min:8'],
+            'password_conf' => ['required','same:password'],
+            'phone' => ['required', 'numeric','unique:karyawan'],
+            'province_id' => ['required'],
+            'city_id' => ['required'],
+            'district_id' => ['required'],
+            'village_id' => ['required'],
+            'nip' => ['required','numeric','unique:karyawan'],
+            'kode_pos' => ['required','numeric'],
+            'tmt' => ['required'],
+            'kelamin' => ['required'],
+            'sk_pertama' => ['required'],
+            'nuptk' => ['required'],
+            'agama' => ['required'],
+            'nrg' => ['required'],
+            'sertifikat_pendidik' => ['required'],
+            'kode_sertifikat_mp' => ['required'],
+            'tempat_lahir' => ['required'],
+            'tanggal_lahir' => ['required'],
+            'ijazah_terakhir' => ['required'],
+            'alamat' => ['required'],
+            'nomor_ijazah' => ['required'],
+            'jurusan' => ['required'],
+            'program_studi' => ['required'],
+            'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png'
+        ]);
+        //proses update
         $karyawan = Karyawan::findOrFail($id);
         $input = $request->all();
 

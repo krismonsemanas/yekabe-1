@@ -37,8 +37,8 @@
 					<span class="login100-form-title p-b-20">
 						LOGIN | MASUK
 					</span>
-                    @error('username') <small class="text-danger text-center">Username atau passwor salah</small> @enderror
-                    @if (session('not_active')) <small style="color: white">{{ session('not_active') }}</small> @endif
+                    @error('username') <strong class="text-white text-center">Username atau passwor salah</strong> @enderror
+                    @if (session('not_active')) <strong class="text-center" style="color: white">{{ session('not_active') }}</strong> @endif
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
 						<input class="input100" type="text" name="username" placeholder="Username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 						<span class="focus-input100"></span>

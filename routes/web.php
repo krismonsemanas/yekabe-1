@@ -106,6 +106,7 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::get('/absen/kelas/new/{id}', 'AbsenGuruController@create');
     Route::post('/absen/single', 'AbsenGuruController@single_store');
     Route::post('/absen/delete/{id}', 'AbsenGuruController@destroy');
+    Route::post('/absen/search', 'AbsenGuruController@search');
 
 
     Route::get('/absen/{kategori}/edit', 'AbsenGuruController@edit');

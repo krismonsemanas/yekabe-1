@@ -72,16 +72,20 @@
             <div style="margin:10px;">
                 <a href="{{ url('/guru/absen/kelas/now/'.$guru->id) }}" class="btn btn-block btn-primary btn-lg">ABSEN HARI INI</a>
               </div>
+              <div style="margin:10px;">
+                    <a href="{{ url('/guru/absen/kelas/new/'.$guru->id) }}" class="btn btn-block btn-success btn-lg">ABSEN PERORANGAN</a>
+                  </div>
               <hr>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th class='text-center'>NO</th>
+                  <th class='text-center'  style="width:5%;">NO</th>
                   <th class='text-center'>NAMA</th>
-                  <th class='text-center'>STATUS</th>
+                  <th class='text-center'  style="width:10%;">STATUS</th>
                   <th class='text-center'>KETERANGAN</th>
+                  <th class='text-center'  style="width:10%;">AKSI</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,6 +95,7 @@
                       <td class='text-center'>{{$absen->siswa->nama}}</td>
                       <td class='text-center'>{{$absen->status === "I" ? 'IZIN' : ($absen->status === "H" ? 'HADIR' : ($absen->status === "S" ? 'SAKIT' : 'ALPHA'))}}</td>
                       <td class='text-center'>{{$absen->keterangan}}</td>
+                      <td class='text-center'><button class="delete-data btn btn-danger btn-xs" data-photo-id="{{$absen->id}}"><i class="fa fa-trash"> HAPUS</i></button></td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -100,6 +105,7 @@
                     <th class='text-center'>NAMA</th>
                     <th class='text-center'>STATUS</th>
                     <th class='text-center'>KETERANGAN</th>
+                    <th class='text-center'>AKSI</th>
                 </tr>
                 </tfoot>
               </table>
@@ -129,4 +135,41 @@
             $('#example1').DataTable()
         })
     </script>
+    <script>
+            $('button.delete-data').click(function() {
+              var eventId = $(this).attr("data-photo-id");
+              deleteEvent(eventId);
+            });
+            function deleteEvent(eventId) {
+              swal({
+                title: "Apakah anda yakin?",
+                text: "Apakah anda yakin ingin menghapus?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Ya",
+                confirmButtonColor: "#ec6c62"
+              }, function() {
+                $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+            });
+                $.ajax({
+                  url: "/guru/absen/delete/" + eventId,
+                  type: "post"
+                })
+                .done(function(data) {
+                  swal("SUKSES!", "Data Berhasil Dihapus", "success");
+                  setTimeout(function () {
+                    location.reload();
+                  }, 1500);
+
+                })
+                .error(function(data) {
+                  swal("Oops", "Kami Tidak Dapat Terhubung Ke Server !", "error");
+                });
+              });
+            }
+          </script>
 @endpush

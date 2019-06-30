@@ -64,7 +64,7 @@
               @endif
               <div style="margin:10px;">
                 <a href="/manage/guru/new" class="btn btn-block btn-primary btn-lg">Tambah Guru Pada Tahun Ajaran Tertentu</a>
-              </div>  
+              </div>
               <hr>
             <div class="box-header">
               <h3 class="box-title">Data Seluruh Guru</h3>
@@ -100,7 +100,7 @@
                         <button class="delete-data btn btn-danger btn-xs" data-photo-id="{{$guru->id}}"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
-                  @endforeach                
+                  @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
@@ -142,8 +142,8 @@
       });
       function deleteEvent(eventId) {
         swal({
-          title: "Apakah anda yakin?", 
-          text: "Apakah anda yakin ingin menghapus?", 
+          title: "Apakah anda yakin?",
+          text: "Apakah anda yakin ingin menghapus?",
           type: "warning",
           showCancelButton: true,
           closeOnConfirm: false,
@@ -164,7 +164,7 @@
             setTimeout(function () {
               location.reload();
             }, 1500);
-            
+
           })
           .error(function(data) {
             swal("Oops", "Kami Tidak Dapat Terhubung Ke Server !", "error");

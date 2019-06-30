@@ -22,7 +22,11 @@ class LoginController extends Controller
     use AuthenticatesUsers {
         logout as doLogout;
     }
-
+    /**
+     *  where to redirect user after login
+     *  @var String
+     */
+    protected $redirectTo = '/manage/dashboard';
     /**
      * Create a new controller instance.
      *
@@ -37,17 +41,16 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $this->doLogout($request);
-
         return redirect()->route('login');
-    {
-    public function redirectTo()
-    {
-        $user = Auth::user();
-        switch($user->level):
-            case 'ADMIN':
-                return 'manage/dashboard';
-            case 'GURU':
-                return route('dashboard.guru');
-        endswitch;
     }
+    // public function redirectTo()
+    // {
+    //     $user = Auth::user();
+    //     switch($user->level):
+    //         case 'ADMIN':
+    //             return 'manage/dashboard';
+    //         case 'GURU':
+    //             return route('dashboard.guru');
+    //     endswitch;
+    // }
 }

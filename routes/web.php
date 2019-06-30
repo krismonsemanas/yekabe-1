@@ -88,6 +88,9 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::post('/murid/delete/{id}', 'MuridController@destroy');
 
 });
+// Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:GURU']], function() {
+//     Route::get('/dashboard','DashboardGuruController@index');
+// });
 Route::get('/json-regencies','KaryawanController@regencies');
 Route::get('/json-districts', 'KaryawanController@districts');
 Route::get('/json-village', 'KaryawanController@villages');

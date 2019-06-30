@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController as DefaultLoginController;
-use Illuminate\Http\Request;
 
 class LoginAppController extends DefaultLoginController
 {
@@ -29,13 +28,9 @@ class LoginAppController extends DefaultLoginController
     {
         return Auth::guard('login_app');
     }
-        //
-    public function logoutApp(Request $request)
-    {
-        $this->guard()->logout();
-
-        $request->session()->invalidate();
-
-        return $this->loggedOut($request) ?: redirect('login');
+    public function logoutApp(){
+        Auth::logout();
+        session()->invalidate();
+        return redirect(url('login'));
     }
 }

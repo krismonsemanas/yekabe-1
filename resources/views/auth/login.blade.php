@@ -34,10 +34,11 @@
 						<img src="images/avatar-01.jpg" alt="AVATAR">
 					</div> -->
 
-					<span class="login100-form-title p-b-45">
+					<span class="login100-form-title p-b-20">
 						LOGIN | MASUK
 					</span>
-
+                    @error('username') <small class="text-danger text-center">Username atau passwor salah</small> @enderror
+                    @if (session('not_active')) <small style="color: white">{{ session('not_active') }}</small> @endif
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
 						<input class="input100" type="text" name="username" placeholder="Username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 						<span class="focus-input100"></span>
@@ -45,7 +46,6 @@
 							<i class="fa fa-user"></i>
 						</span>
 					</div>
-
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
 						<input class="input100" type="password" name="password" placeholder="Password" required autocomplete="current-password">
 						<span class="focus-input100"></span>

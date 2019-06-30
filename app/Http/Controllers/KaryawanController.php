@@ -10,6 +10,8 @@ use App\Province;
 use App\City;
 use App\District;
 use App\Village;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 class KaryawanController extends Controller
 {
@@ -45,9 +47,44 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
        $request->validate([
-            'nama' => 'required',
+            'nama' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string','min:8', 'max:255','unique:login_app'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:karyawan'],
+            'password' => ['required', 'string', 'min:8'],
+            'password_conf' => ['required','same:password'],
+            'phone' => ['required', 'numeric','unique:karyawan'],
+            'province_id' => ['required'],
+            'city_id' => ['required'],
+            'district_id' => ['required'],
+            'village_id' => ['required'],
+            'nip' => ['required','numeric'],
+            'kode_pos' => ['required','numeric'],
+            'tmt' => ['required'],
+            'kelamin' => ['required'],
+            'sk_pertama' => ['required'],
+            'nuptk' => ['required'],
+            'agama' => ['required'],
+            'nrg' => ['required'],
+            'sertifikat_pendidik' => ['required'],
+            'kode_sertifikat_mp' => ['required'],
+            'tempat_lahir' => ['required'],
+            'tanggal_lahir' => ['required'],
+            'ijazah_terakhir' => ['required'],
+            'alamat' => ['required'],
+            'nomor_ijazah' => ['required'],
+            'jurusan' => ['required'],
+            'program_studi' => ['required'],
+            'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png'
         ]);
+        User::create([
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'level' => 'GURU',
+            'status' => 'ACTIVE',
+        ]);
+        $getId = User::orderBy('id','desc')->first();
         $input = $request->all();
+        $input['id_login'] = $getId['id'];
         $input['tanggal_lahir'] = date('Y-m-d',strtotime($input['tanggal_lahir']));
         if($request->hasFile('photo')){
             $photo = $request->file('photo');

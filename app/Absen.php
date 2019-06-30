@@ -18,7 +18,9 @@ class Absen extends Model
         'jadwal',
         'created_at',
         'status',
-        'keterangan'
+        'keterangan',
+        'updated_at',
+        'active'
     ];
 
     public function Periode() {

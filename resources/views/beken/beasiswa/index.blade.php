@@ -1,19 +1,19 @@
 @extends('tenpureto.beken.index')
 
 @section('seo-title')
-	Pengumuman
+	Beasiswa
 @endsection
 
 @section('title')
   <h1>
-    Pengumuman
-    <small>Info Pengumuman</small>
+    Beasiswa
+    <small>Info Beasiswa</small>
   </h1>
 @endsection
 
 @section('breadcrumb')
-  <li><a href="#"><i class="fa fa-dashboard"></i> Pengumuman</a></li>
-  <li class="active">Info Pengumuman</li>
+  <li><a href="#"><i class="fa fa-dashboard"></i> Beasiswa</a></li>
+  <li class="active">Info Beasiswa</li>
 @endsection
 
 @push('css')
@@ -63,11 +63,11 @@
               {{session()->forget('delete')}}
               @endif
               <div style="margin:10px;">
-                <a href="/manage/pengumuman/new" class="btn btn-block btn-primary btn-lg">Tambah Pengumuman</a>
+                <a href="/manage/beasiswa/new" class="btn btn-block btn-primary btn-lg">Tambah Beasiswa</a>
               </div>
               <hr>
             <div class="box-header">
-              <h3 class="box-title">Data Seluruh Pengumuman</h3>
+              <h3 class="box-title">Data Seluruh Beasiswa</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -82,24 +82,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach($pengumuman as $no => $pengumuman)
+                  @foreach($beasiswa as $no => $beasiswa)
                     <tr>
                       <td class='text-center'>{{$no+1}}</td>
                       <td>
-                        {{$pengumuman->judul}}
+                        {{$beasiswa->judul}}
                         <br />
-                        <small><i>Dibuat pada {{$pengumuman->created_at->format('d M Y')}}</i></small>
+                        <small><i>Dibuat pada {{$beasiswa->created_at->format('d M Y')}}</i></small>
                       </td>
-                      <td>{!!$pengumuman->isi!!}</td>
-                      @if($pengumuman->status == 1)
+                      <td>{!!$beasiswa->isi!!}</td>
+                      @if($beasiswa->status == 1)
                         <td class='text-center'>Aktif</td>
                       @else
                         <td class='text-center'>Tidak Aktif</td>
                       @endif
                       <td class='text-center'>
-                        <!-- <a target="_blank" href="{{ url('artikel/'.$pengumuman->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Lihat </a> -->
-                        <a href="{{ url('manage/pengumuman/'.$pengumuman->id.'/edit') }}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
-                        <button class="delete-pengumuman btn btn-danger btn-xs" data-photo-id="{{$pengumuman->id}}"><i class="fa fa-trash"></i></button>
+                        <!-- <a target="_blank" href="{{ url('artikel/'.$beasiswa->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Lihat </a> -->
+                        <a href="{{ url('manage/beasiswa/'.$beasiswa->id.'/edit') }}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
+                        <button class="delete-beasiswa btn btn-danger btn-xs" data-photo-id="{{$beasiswa->id}}"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
                   @endforeach
@@ -137,7 +137,7 @@
         })
     </script>
     <script>
-      $('button.delete-pengumuman').click(function() {
+      $('button.delete-beasiswa').click(function() {
         var eventId = $(this).attr("data-photo-id");
         deleteEvent(eventId);
       });
@@ -157,7 +157,7 @@
         }
       });
           $.ajax({
-            url: "pengumuman/delete/" + eventId,
+            url: "beasiswa/delete/" + eventId,
             type: "post"
           })
           .done(function(data) {

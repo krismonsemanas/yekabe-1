@@ -111,6 +111,8 @@
           <li class="{{ Request::is('manage/periode') ? 'active' : '' }} {{ Request::is('manage/periode/new') ? 'active' : '' }} {{ Request::is('manage/periode/edit') ? 'active' : '' }}"><a href="/manage/periode"><i class="fa fa-calendar text-aqua"></i> <span>Periode</span></a></li>
           <li class="{{ Request::is('manage/kelas') ? 'active' : '' }} {{ Request::is('manage/kelas/new') ? 'active' : '' }} {{ Request::is('manage/kelas/edit') ? 'active' : '' }}"><a href="/manage/kelas"><i class="fa fa-institution text-yellow"></i> <span>Kelas</span></a></li>
           <li class="{{ Request::is('manage/mapel') ? 'active' : '' }} {{ Request::is('manage/mapel/new') ? 'active' : '' }} {{ Request::is('manage/mapel/edit') ? 'active' : '' }}"><a href="/manage/mapel"><i class="fa fa-book text-green"></i> <span>Mapel</span></a></li>
+          <li class="{{ Request::is('manage/bobot') ? 'active' : '' }} {{ Request::is('manage/bobot/new') ? 'active' : '' }} {{ Request::is('manage/bobot/edit') ? 'active' : '' }}"><a href="/manage/bobot"><i class="fa fa-list text-red"></i> <span>Bobot</span></a></li>
+          <li class="{{ Request::is('manage/jadwal') ? 'active' : '' }} {{ Request::is('manage/jadwal/new') ? 'active' : '' }} {{ Request::is('manage/jadwal/edit') ? 'active' : '' }}"><a href="/manage/jadwal"><i class="fa fa-calendar-check-o text-purple"></i> <span>Jadwal</span></a></li>
         @endif
         @if(auth()->user()->level == 'GURU')
           <li class="{{ Request::is('guru/profil-saya') ? 'active' : ''}}"><a href="{{route('guru.profil.edit')}}"><i class="fa fa-user text-aqua"></i> <span>Profil</span></a></li>

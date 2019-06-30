@@ -1,19 +1,19 @@
 @extends('tenpureto.beken.index')
 
 @section('seo-title')
-	Absen Perorangan
+	Buat Pengumuman Beasiswa
 @endsection
 
 @section('title')
   <h1>
-    Absen
-    <small>Absen Perorangan</small>
+    Pengumuman
+    <small>Buat Pengumuman Beasiswa</small>
   </h1>
 @endsection
 
 @section('breadcrumb')
-  <li><a href="#"><i class="fa fa-bullhorn"></i>Absen</a></li>
-  <li class="active">Absen Perorangan</li>
+  <li><a href="#"><i class="fa fa-bullhorn"></i>Pengumuman Beasiswa</a></li>
+  <li class="active">Buat Pengumuman Beasiwa</li>
 @endsection
 
 @push('css')
@@ -31,12 +31,12 @@
             <div class="box box-default">
             <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Absen Perorangan</h3>
+              <h3 class="box-title">Buat Pengumuman Beasiswa</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                {!! Form::open(['url' => 'guru/absen/single']) !!}
-                  @include('beken.absen.form', ['submitButtonText' => 'Tambah Absen Perorangan'])
+                {!! Form::open(['url' => 'manage/beasiswa']) !!}
+                  @include('beken.beasiswa.form', ['submitButtonText' => 'Tambah Pengumuman Beasiswa'])
                 {!! Form::close() !!}
             </div>
             <!-- /.box-body -->

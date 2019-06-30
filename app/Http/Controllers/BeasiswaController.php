@@ -4,21 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pengumuman;
-use Validator;
-
-class PengumumanController extends Controller
+class BeasiswaController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * tampilkan data pengumuman beasiswa status nya aktif
      */
-    public function index()
-    {
-        //
-        $data['pengumuman'] = Pengumuman::where('status',1)->get();
-        return view('beken.pengumuman.index',$data);
+    public function index(){
+        $data['beasiswa'] = Pengumuman::where([
+            'kategori' => 'beasiswa',
+        ])->get();
+        return view('beken.beasiswa.index',$data);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -26,34 +23,24 @@ class PengumumanController extends Controller
      */
     public function create()
     {
-        //
-        return view('beken.pengumuman.create');
+        return view('beken.beasiswa.create');
     }
-
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * save data ke tabel pengumuman dengan kategori beasiswa
+     * @param Request
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        //validate
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'sampai' => 'required',
+        ]);
         $input = $request->all();
+        $input['kategori'] = 'beasiswa';
         $input['sampai'] = date('Y-m-d',strtotime($input['sampai']));
     	Pengumuman::create($input);
-        return redirect('manage/pengumuman')->with('new','Data Baru Telah Dibuat.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect('manage/beasiswa')->with('new','Data Baru Telah Dibuat.');
     }
 
     /**
@@ -65,9 +52,9 @@ class PengumumanController extends Controller
     public function edit($id)
     {
         //
-        $data['pengumuman'] = Pengumuman::findOrFail($id);
-        $data['pengumuman']['sampai'] = date('m/d/Y',strtotime($data['pengumuman']['sampai']));
-        return view('beken.pengumuman.edit', $data);
+        $data['beasiswa'] = Pengumuman::findOrFail($id);
+        $data['beasiswa']['sampai'] = date('m/d/Y',strtotime($data['beasiswa']['sampai']));
+        return view('beken.beasiswa.edit', $data);
 
     }
 
@@ -80,12 +67,18 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validate
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'sampai' => 'required',
+        ]);
         $pengumuman = Pengumuman::findOrFail($id);
         $input = $request->all();
+        $input['kategori'] = 'beasiswa';
         $input['sampai'] = date('Y-m-d',strtotime($input['sampai']));
         $pengumuman->update($input);
-        return redirect('manage/pengumuman')->with('edit','Data Telah Diubah.');
+        return redirect('manage/beasiswa')->with('edit','Data Telah Diubah.');
 
     }
 
@@ -100,6 +93,6 @@ class PengumumanController extends Controller
         //
         $pengumuman = Pengumuman::findOrFail($id);
         $pengumuman->update(['status' => '0']);
-        return redirect('manage/pengumuman')->with('delete','Data Telah Dihapus.');
+        return redirect('manage/beasiswa')->with('delete','Data Telah Dihapus.');
     }
 }

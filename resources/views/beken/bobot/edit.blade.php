@@ -1,19 +1,19 @@
 @extends('tenpureto.beken.index')
 
 @section('seo-title')
-	Absen Perorangan
+	Ubah Bobot
 @endsection
 
 @section('title')
   <h1>
-    Absen
-    <small>Absen Perorangan</small>
+    Bobot
+    <small>Ubah Bobot</small>
   </h1>
 @endsection
 
 @section('breadcrumb')
-  <li><a href="#"><i class="fa fa-bullhorn"></i>Absen</a></li>
-  <li class="active">Absen Perorangan</li>
+  <li><a href="#"><i class="fa fa-bullhorn"></i>Bobot</a></li>
+  <li class="active">Ubah Bobot</li>
 @endsection
 
 @push('css')
@@ -31,12 +31,12 @@
             <div class="box box-default">
             <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Absen Perorangan</h3>
+              <h3 class="box-title">Ubah Bobot</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                {!! Form::open(['url' => 'guru/absen/single']) !!}
-                  @include('beken.absen.form', ['submitButtonText' => 'Tambah Absen Perorangan'])
+                {!! Form::model($bobot, ['method' => 'PATCH', 'action' => ['BobotController@update', $bobot->id]]) !!}
+                  @include('beken.bobot.form', ['submitButtonText' => 'Ubah Bobot'])
                 {!! Form::close() !!}
             </div>
             <!-- /.box-body -->

@@ -39,7 +39,7 @@ class LoginController extends Controller
         $this->doLogout($request);
 
         return redirect()->route('login');
-    {
+    }
     public function redirectTo()
     {
         $user = Auth::user();

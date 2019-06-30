@@ -21,6 +21,8 @@ class CreateNilaiTable extends Migration {
 			$table->integer('karyawan_id');
 			$table->integer('data_murid_id');
 			$table->integer('nilai');
+			$table->unsignedInteger('bobot_id');
+			$table->foreign('bobot_id')->reference('id')->on('bobot');
 			$table->timestamps();
 		});
 	}

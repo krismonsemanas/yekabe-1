@@ -29,4 +29,9 @@ class Periode extends Model
     {
         return $this->tahun_ajaran . ' Semester ' . $this->semester;
     }
+
+    public function periode()
+    {
+        return $this->semester." - ".$this->tahun_ajaran;
+    }
 }

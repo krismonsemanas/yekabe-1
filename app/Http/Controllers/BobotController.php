@@ -8,7 +8,7 @@ class BobotController extends Controller
 {
     public function index()
     {
-        
+
     }
 
     public function create()

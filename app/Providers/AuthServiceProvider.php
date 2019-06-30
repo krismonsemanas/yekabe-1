@@ -29,5 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::Define('guru',function(User $user){
             return $user->level == 'GURU';
         });
+
+        Gate::define('guru_manage_nilai','App\Policies\LihatDataSiswaPolicy@nilai');
     }
 }

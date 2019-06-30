@@ -98,6 +98,16 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::get('/ubah-password','ProfileKaryawanController@editPassword')->name('guru.password.edit');
     Route::patch('/ubah-password','ProfileKaryawanController@updatePassword')->name('guru.password.update');
 
+    Route::get('daftar-kelas','NilaiController@index')->name('guru.nilai.index');
+    Route::get('daftar-siswa/{kelas}/mapel/{mapel}/p/{periode}','NilaiController@siswa')->name('guru.siswa.index');
+    Route::get('murid/{murid}/nilai','NilaiController@nilai')->name('guru.nilai.siswa');
+    Route::post('murid/{murid}/nilai','NilaiController@store')->name('guru.nilai.siswa.store');
+    Route::middleware(['can:guru_manage_nilai,nilai'])->group(function(){
+        Route::get('murid/nilai/{nilai}/ubah','NilaiController@edit')->name('guru.nilai.siswa.edit');
+        Route::post('murid/nilai/{nilai}/ubah','NilaiController@update')->name('guru.nilai.siswa.update');
+        Route::post('murid/nilai/{nilai}/hapus','NilaiController@destroy')->name('guru.nilai.siswa.delete');
+    });
+
 });
 
 

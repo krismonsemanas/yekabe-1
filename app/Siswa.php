@@ -48,4 +48,14 @@ class Siswa extends Model
       return $this->belongsTo('App\Village','village_id','village_id');
     }
 
+    public function nilai()
+    {
+      return $this->hasMany('App\Nilai');
+    }
+
+    public function murid()
+    {
+      return $this->hasMany('App\Murid');
+    }
+
 }

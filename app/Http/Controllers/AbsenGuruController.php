@@ -31,9 +31,16 @@ class AbsenGuruController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+        $data['guru'] = Guru::findOrFail($id);
+        // $data['kelas'] = Murid::where('periode_id',$data['guru']->periode_id)->where('kelas_id',$data['guru']->kelas_id)->where('mapel_id',$data['guru']->mapel_id)->orderBy('siswa_id.nama','asc')->get();
+        $data['kelas'] = Murid::join('data_murid','murid.siswa_id','=','data_murid.id')->where('periode_id',$data['guru']->periode_id)->where('kelas_id',$data['guru']->kelas_id)->where('mapel_id',$data['guru']->mapel_id)->orderBy('nama','asc')->get();
+        $data['siswa'] = $data['kelas']->pluck('nama', 'id');
+        // dd($data['siswa'] = $data['kelas']->siswa_id->first());
+        // dd($data['kelas']);
+        return view('beken.absen.create',$data);
     }
 
     /**
@@ -114,13 +121,16 @@ class AbsenGuruController extends Controller
     public function destroy($id)
     {
         //
+        $absen = Absen::findOrFail($id);
+        $absen->update(['active' => '0']);
+        // return redirect('manage/karyawan')->with('delete','Data Telah Dihapus.');
     }
 
     public function kelas($id)
     {
         //
         $data['guru'] = Guru::findOrFail($id);
-        $data['absen'] = Absen::where('periode_id',$data['guru']->periode_id)->where('kelas_id',$data['guru']->kelas_id)->where('mapel_id',$data['guru']->mapel_id)->whereDate('jadwal','=',date('Y-m-d', strtotime('+7 hours')))->get();
+        $data['absen'] = Absen::where('periode_id',$data['guru']->periode_id)->where('kelas_id',$data['guru']->kelas_id)->where('mapel_id',$data['guru']->mapel_id)->whereDate('jadwal','=',date('Y-m-d', strtotime('+7 hours')))->where('active',1)->get();
         // dd(date('Y-m-d H', strtotime('+7 hours')));
         return view('beken.absen.kelas',$data);
 
@@ -135,5 +145,36 @@ class AbsenGuruController extends Controller
         // dd($data['siswa'] = $data['kelas']->siswa_id->first());
         // dd($data['kelas']);
         return view('beken.absen.now',$data);
+    }
+
+    public function single_store(Request $request)
+    {
+        //
+        // $test = 'test';
+        // dd($test);
+        $guru = Guru::findOrFail($request->guru_id);
+        $absen = new Absen;
+        $absen->periode_id = $guru->periode_id;
+        $absen->kelas_id = $guru->kelas_id;
+        $absen->mapel_id = $guru->mapel_id;
+        $absen->karyawan_id = $guru->karyawan_id;
+        $absen->data_murid_id = $request->data_murid_id;
+        $absen->jadwal = date('Y-m-d H:i:s', strtotime('+7 hours'));
+        $absen->status = $request->status;
+        $absen->keterangan = $request->keterangan;
+        $absen->save();
+        return redirect('guru/absen/kelas/'.$guru->id)->with('new','Absen Berhasil Ditambahkan.');
+
+    }
+
+    public function search(Request $request)
+    {
+        //
+        $data['guru'] = Guru::findOrFail($request->guru_id);
+        $data['absen'] = Absen::where('periode_id',$data['guru']->periode_id)->where('kelas_id',$data['guru']->kelas_id)->where('mapel_id',$data['guru']->mapel_id)->whereDate('jadwal','=',date('Y-m-d', strtotime($request->jadwal)))->where('active',1)->get();
+        $data['date'] = date('m/d/Y', strtotime($request->jadwal));
+        // dd(date('Y-m-d H', strtotime('+7 hours')));
+        return view('beken.absen.search',$data);
+
     }
 }

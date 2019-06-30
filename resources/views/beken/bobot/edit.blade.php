@@ -1,19 +1,19 @@
 @extends('tenpureto.beken.index')
 
 @section('seo-title')
-	Absen Perorangan
+	Ubah Periode
 @endsection
 
 @section('title')
   <h1>
-    Absen
-    <small>Absen Perorangan</small>
+    Periode
+    <small>Ubah Periode</small>
   </h1>
 @endsection
 
 @section('breadcrumb')
-  <li><a href="#"><i class="fa fa-bullhorn"></i>Absen</a></li>
-  <li class="active">Absen Perorangan</li>
+  <li><a href="#"><i class="fa fa-bullhorn"></i>Periode</a></li>
+  <li class="active">Ubah Periode</li>
 @endsection
 
 @push('css')
@@ -31,12 +31,12 @@
             <div class="box box-default">
             <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Absen Perorangan</h3>
+              <h3 class="box-title">Ubah Periode</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                {!! Form::open(['url' => 'guru/absen/single']) !!}
-                  @include('beken.absen.form', ['submitButtonText' => 'Tambah Absen Perorangan'])
+                {!! Form::model($periode, ['method' => 'PATCH', 'action' => ['PeriodeController@update', $periode->id]]) !!}
+                  @include('beken.periode.form', ['submitButtonText' => 'Ubah Periode'])
                 {!! Form::close() !!}
             </div>
             <!-- /.box-body -->

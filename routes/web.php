@@ -89,6 +89,20 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::patch('/murid/{kategori}', 'MuridController@update');
     Route::post('/murid/delete/{id}', 'MuridController@destroy');
 
+    Route::get('/bobot','BobotController@index');
+    Route::get('/bobot/new','BobotController@create');
+    Route::post('/bobot', 'BobotController@store');
+    Route::get('/bobot/{kategori}/edit', 'BobotController@edit');
+    Route::patch('/bobot/{kategori}', 'BobotController@update');
+    Route::post('/bobot/delete/{id}', 'BobotController@destroy');
+
+    Route::get('/jadwal','JadwalController@index');
+    Route::get('/jadwal/new','JadwalController@create');
+    Route::post('/jadwal', 'JadwalController@store');
+    Route::get('/jadwal/{kategori}/edit', 'JadwalController@edit');
+    Route::patch('/jadwal/{kategori}', 'JadwalController@update');
+    Route::post('/jadwal/delete/{id}', 'JadwalController@destroy');
+
 });
 Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::get('/','DashboardGuruController@index')->name('dashboard.guru');
@@ -103,13 +117,19 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::get('/absen/kelas/{id}','AbsenGuruController@kelas');
     Route::post('/absen/kelas/{id}','AbsenGuruController@store');
     Route::get('/absen/kelas/now/{id}', 'AbsenGuruController@now');
+    Route::get('/absen/kelas/new/{id}', 'AbsenGuruController@create');
+    Route::post('/absen/single', 'AbsenGuruController@single_store');
+    Route::post('/absen/delete/{id}', 'AbsenGuruController@destroy');
+    Route::post('/absen/search', 'AbsenGuruController@search');
+
 
     Route::get('/absen/{kategori}/edit', 'AbsenGuruController@edit');
     Route::patch('/absen/{kategori}', 'AbsenGuruController@update');
-    Route::post('/absen/delete/{id}', 'AbsenGuruController@destroy');
 
 
 });
+
+
 
 
 

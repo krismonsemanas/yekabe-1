@@ -85,7 +85,7 @@
                         <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i> {!! Form::label('jadwal', 'Lihat Absen Pada Tanggal :', ['class' => 'control-label']) !!}
                         </div>
-                        {!! Form::text('jadwal', null, ['class' => 'form-control', 'id' => 'datepicker', 'style' => 'width:30%;'],['value' => '{{old(tempat_lahir)}}']) !!}{!! Form::submit('Cari', ['class' => 'btn btn-primary form-control', 'style' => 'width:10%;']) !!}
+                        {!! Form::text('jadwal', $date, ['class' => 'form-control', 'id' => 'datepicker', 'style' => 'width:30%;'],['value' => '{{old(tempat_lahir)}}']) !!}{!! Form::submit('Cari', ['class' => 'btn btn-primary form-control', 'style' => 'width:10%;']) !!}
                     </div>
                     {!! Form::close() !!}
               </div>
@@ -98,7 +98,7 @@
                   <th class='text-center'>NAMA</th>
                   <th class='text-center'  style="width:10%;">STATUS</th>
                   <th class='text-center'>KETERANGAN</th>
-                  <th class='text-center'  style="width:10%;">AKSI</th>
+                  {{-- <th class='text-center'  style="width:10%;">AKSI</th> --}}
                 </tr>
                 </thead>
                 <tbody>
@@ -108,7 +108,7 @@
                       <td class='text-center'>{{$absen->siswa->nama}}</td>
                       <td class='text-center'>{{$absen->status === "I" ? 'IZIN' : ($absen->status === "H" ? 'HADIR' : ($absen->status === "S" ? 'SAKIT' : 'ALPHA'))}}</td>
                       <td class='text-center'>{{$absen->keterangan}}</td>
-                      <td class='text-center'><button class="delete-data btn btn-danger btn-xs" data-photo-id="{{$absen->id}}"><i class="fa fa-trash"> HAPUS</i></button></td>
+                      {{-- <td class='text-center'><button class="delete-data btn btn-danger btn-xs" data-photo-id="{{$absen->id}}"><i class="fa fa-trash"> HAPUS</i></button></td> --}}
                     </tr>
                   @endforeach
                 </tbody>
@@ -118,7 +118,7 @@
                     <th class='text-center'>NAMA</th>
                     <th class='text-center'>STATUS</th>
                     <th class='text-center'>KETERANGAN</th>
-                    <th class='text-center'>AKSI</th>
+                    {{-- <th class='text-center'>AKSI</th> --}}
                 </tr>
                 </tfoot>
               </table>

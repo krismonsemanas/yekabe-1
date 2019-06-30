@@ -43,14 +43,5 @@ class LoginController extends Controller
         $this->doLogout($request);
         return redirect()->route('login');
     }
-    // public function redirectTo()
-    // {
-    //     $user = Auth::user();
-    //     switch($user->level):
-    //         case 'ADMIN':
-    //             return 'manage/dashboard';
-    //         case 'GURU':
-    //             return route('dashboard.guru');
-    //     endswitch;
-    // }
+   
 }

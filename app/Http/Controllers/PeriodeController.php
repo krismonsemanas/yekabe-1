@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Periode;
-use Validator; 
+use Validator;
 
 class PeriodeController extends Controller
 {
@@ -27,7 +27,7 @@ class PeriodeController extends Controller
      */
     public function create()
     {
-        //        
+        //
         return view('beken.periode.create');
     }
 
@@ -67,7 +67,7 @@ class PeriodeController extends Controller
         //
         $data['periode'] = Periode::findOrFail($id);
         return view('beken.periode.edit', $data);
-        
+
     }
 
     /**

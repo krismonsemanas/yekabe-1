@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Bobot;
 
 class BobotController extends Controller
 {
@@ -14,6 +15,8 @@ class BobotController extends Controller
     public function index()
     {
         //
+        $data['bobot'] = Bobot::all();
+        return view('beken.bobot.index',$data);
     }
 
     /**
@@ -24,6 +27,7 @@ class BobotController extends Controller
     public function create()
     {
         //
+        return view('beken.bobot.create');
     }
 
     /**
@@ -35,6 +39,9 @@ class BobotController extends Controller
     public function store(Request $request)
     {
         //
+        $input = $request->all();
+    	  Bobot::create($input);
+        return redirect('manage/bobot')->with('new','Data Baru Telah Dibuat.');
     }
 
     /**
@@ -57,6 +64,8 @@ class BobotController extends Controller
     public function edit($id)
     {
         //
+        $data['bobot'] = Bobot::findOrFail($id);
+        return view('beken.bobot.edit', $data);
     }
 
     /**
@@ -69,6 +78,10 @@ class BobotController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $bobot = Bobot::findOrFail($id);
+        $input = $request->all();
+        $bobot->update($input);
+        return redirect('manage/bobot')->with('edit','Data Telah Diubah.');
     }
 
     /**
@@ -80,5 +93,7 @@ class BobotController extends Controller
     public function destroy($id)
     {
         //
+        Bobot::findOrFail($id)->delete();
+        return redirect('manage/bobot')->with('delete','Data Telah Dihapus.');
     }
 }

@@ -1,19 +1,19 @@
 @extends('tenpureto.beken.index')
 
 @section('seo-title')
-	Buat Periode Baru
+	Buat Bobot Baru
 @endsection
 
 @section('title')
   <h1>
-    Periode
-    <small>Buat Periode Baru</small>
+    Bobot
+    <small>Buat Bobot Baru</small>
   </h1>
 @endsection
 
 @section('breadcrumb')
-  <li><a href="#"><i class="fa fa-bullhorn"></i>Periode</a></li>
-  <li class="active">Buat Periode Baru</li>
+  <li><a href="#"><i class="fa fa-bullhorn"></i>Bobot</a></li>
+  <li class="active">Buat Bobot Baru</li>
 @endsection
 
 @push('css')
@@ -31,12 +31,12 @@
             <div class="box box-default">
             <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Buat Periode Baru</h3>
+              <h3 class="box-title">Buat Bobot Baru</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                {!! Form::open(['url' => 'manage/periode']) !!}
-                  @include('beken.periode.form', ['submitButtonText' => 'Tambah Periode Baru'])
+                {!! Form::open(['url' => 'manage/bobot']) !!}
+                  @include('beken.bobot.form', ['submitButtonText' => 'Tambah Bobot Baru'])
                 {!! Form::close() !!}
             </div>
             <!-- /.box-body -->

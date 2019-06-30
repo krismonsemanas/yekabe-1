@@ -21,5 +21,108 @@
 @endpush
 
 @section('main')
+<div class="row">
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-3">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>0</h3>
 
+              <p>Jumlah Kelas Yang Diajar</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-users"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-3">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                  <div class="inner">
+                    <h3>0</h3>
+
+                    <p>Jumlah Mata Pelajaran Yang Diampu</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fa fa-users"></i>
+                  </div>
+                </div>
+              </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-3">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>0</h3>
+
+              <p>Jumlah Siswa Yang Diajar</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-male"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- Main row -->
+      <div class="row">
+        <!-- Left col -->
+        <section class="content" >
+            <div class="box box-default">
+            <div class="box">
+                <br>
+                @if(session('edit'))
+                  <!-- Success Alert -->
+                    <div class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><strong><i class="hi hi-check"></i> Sukses</strong></h4>
+                        <p>{{ session('edit') }}</p>
+                    </div>
+                  <!-- END Success Alert -->
+                  {{session()->forget('edit')}}
+                  @endif
+                  <br>
+            <div class="box-header">
+              <h3 class="box-title">Jadwal Mengajar</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th class='text-center'>NO</th>
+                  <th class='text-center'>KELAS</th>
+                  <th class='text-center'>MATA PELAJARAN</th>
+                  <th class='text-center'>WAKTU</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                      <td class='text-center'></td>
+                      <td class='text-center'></td>
+                      <td class='text-center'></td>
+                      <td class='text-center'></td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th class='text-center'>NO</th>
+                    <th class='text-center'>KELAS</th>
+                    <th class='text-center'>MATA PELAJARAN</th>
+                    <th class='text-center'>WAKTU</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          <!-- /.box -->
+            </div>
+        </section>
+        <!-- right col -->
+      </div>
+      <!-- /.row (main row) -->
 @endsection

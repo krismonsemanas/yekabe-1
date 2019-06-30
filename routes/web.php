@@ -89,6 +89,8 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::patch('/murid/{kategori}', 'MuridController@update');
     Route::post('/murid/delete/{id}', 'MuridController@destroy');
 
+    // beasiswa
+    Route::get('/beasiswa','BeasiswaController@index');
 });
 Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::get('/','DashboardGuruController@index')->name('dashboard.guru');

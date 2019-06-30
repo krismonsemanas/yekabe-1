@@ -72,6 +72,9 @@
             <div style="margin:10px;">
                 <a href="{{ url('/guru/absen/kelas/now/'.$guru->id) }}" class="btn btn-block btn-primary btn-lg">ABSEN HARI INI</a>
               </div>
+              <div style="margin:10px;">
+                    <a href="{{ url('/guru/absen/kelas/new/'.$guru->id) }}" class="btn btn-block btn-success btn-lg">ABSEN PERORANGAN</a>
+                  </div>
               <hr>
             <!-- /.box-header -->
             <div class="box-body">

@@ -1,19 +1,19 @@
 @extends('tenpureto.beken.index')
 
 @section('seo-title')
-	Periode
+	Bobot
 @endsection
 
 @section('title')
   <h1>
-    Periode
-    <small>Info Periode</small>
+    Bobot
+    <small>Info Bobot</small>
   </h1>
 @endsection
 
 @section('breadcrumb')
-  <li><a href="#"><i class="fa fa-dashboard"></i> Periode</a></li>
-  <li class="active">Info Periode</li>
+  <li><a href="#"><i class="fa fa-dashboard"></i> Bobot</a></li>
+  <li class="active">Info Bobot</li>
 @endsection
 
 @push('css')
@@ -63,11 +63,11 @@
               {{session()->forget('delete')}}
               @endif
               <div style="margin:10px;">
-                <a href="/manage/periode/new" class="btn btn-block btn-primary btn-lg">Tambah Periode</a>
-              </div>  
+                <a href="/manage/bobot/new" class="btn btn-block btn-primary btn-lg">Tambah Bobot</a>
+              </div>
               <hr>
             <div class="box-header">
-              <h3 class="box-title">Data Seluruh Periode</h3>
+              <h3 class="box-title">Data Seluruh Bobot</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -75,34 +75,30 @@
                 <thead>
                 <tr>
                   <th class='text-center'>NO</th>
-                  <th class='text-center'>TAHUN AJARAN</th>
-                  <th class='text-center'>SEMESTER</th>
+                  <th class='text-center'>NAMA</th>
+                  <th class='text-center'>PERSENTASE</th>
                   <th class='text-center'>AKSI</th>
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach($periode as $no => $periode)
+                  @foreach($bobot as $no => $bobot)
                     <tr>
                       <td class='text-center'>{{$no+1}}</td>
+                      <td class='text-center'>{{$bobot->nama}}</td>
+                      <td class='text-center'>{{$bobot->persentase}} %</td>
                       <td class='text-center'>
-                        {{$periode->tahun_ajaran}}
-                        <br />
-                        <small><i>Dibuat pada {{$periode->created_at->format('d M Y')}}</i></small>
-                      </td>
-                      <td class='text-center'>{{$periode->semester}}</td>
-                      <td class='text-center'>
-                        <!-- <a target="_blank" href="{{ url('manage/'.$periode->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Lihat </a> -->
-                        <a href="{{ url('manage/periode/'.$periode->id.'/edit') }}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
-                        <button class="delete-data btn btn-danger btn-xs" data-photo-id="{{$periode->id}}"><i class="fa fa-trash"></i></button>
+                        <!-- <a target="_blank" href="{{ url('manage/'.$bobot->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Lihat </a> -->
+                        <a href="{{ url('manage/bobot/'.$bobot->id.'/edit') }}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
+                        <button class="delete-data btn btn-danger btn-xs" data-photo-id="{{$bobot->id}}"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
-                  @endforeach                
+                  @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
                   <th class='text-center'>NO</th>
-                  <th class='text-center'>TAHUN AJARAN</th>
-                  <th class='text-center'>SEMESTER</th>
+                  <th class='text-center'>NAMA</th>
+                  <th class='text-center'>PERSENTASE</th>
                   <th class='text-center'>AKSI</th>
                 </tr>
                 </tfoot>
@@ -136,8 +132,8 @@
       });
       function deleteEvent(eventId) {
         swal({
-          title: "Apakah anda yakin?", 
-          text: "Apakah anda yakin ingin menghapus?", 
+          title: "Apakah anda yakin?",
+          text: "Apakah anda yakin ingin menghapus?",
           type: "warning",
           showCancelButton: true,
           closeOnConfirm: false,
@@ -150,7 +146,7 @@
         }
       });
           $.ajax({
-            url: "periode/delete/" + eventId,
+            url: "bobot/delete/" + eventId,
             type: "post"
           })
           .done(function(data) {
@@ -158,7 +154,7 @@
             setTimeout(function () {
               location.reload();
             }, 1500);
-            
+
           })
           .error(function(data) {
             swal("Oops", "Kami Tidak Dapat Terhubung Ke Server !", "error");

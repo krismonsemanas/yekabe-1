@@ -18,7 +18,15 @@ class Kelas extends Model
 
     public function Guru() {
         return $this->hasMany('App\Guru','kelas_id');
-    } 
+    }
+
+    public function Siswa() {
+        return $this->hasMany('App\Murid','kelas_id');
+    }
+
+    public function Absen() {
+        return $this->hasMany('App\Absen','kelas_id');
+    }
 
     public function Wali() {
         return $this->hasMany('App\Wali','kelas_id');

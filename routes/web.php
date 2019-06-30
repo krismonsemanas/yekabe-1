@@ -101,11 +101,14 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::patch('/ubah-password','ProfileKaryawanController@updatePassword')->name('guru.password.update');
 
     Route::get('/absen','AbsenGuruController@index');
-    Route::get('/absen/new','AbsenGuruController@create');
-    Route::post('/absen', 'AbsenGuruController@store');
+    Route::get('/absen/kelas/{id}','AbsenGuruController@kelas');
+    Route::post('/absen/kelas/{id}','AbsenGuruController@store');
+    Route::get('/absen/kelas/now/{id}', 'AbsenGuruController@now');
+
     Route::get('/absen/{kategori}/edit', 'AbsenGuruController@edit');
     Route::patch('/absen/{kategori}', 'AbsenGuruController@update');
     Route::post('/absen/delete/{id}', 'AbsenGuruController@destroy');
+
 
 });
 

@@ -166,4 +166,15 @@ class AbsenGuruController extends Controller
         return redirect('guru/absen/kelas/'.$guru->id)->with('new','Absen Berhasil Ditambahkan.');
 
     }
+
+    public function search(Request $request)
+    {
+        //
+        $data['guru'] = Guru::findOrFail($request->guru_id);
+        $data['absen'] = Absen::where('periode_id',$data['guru']->periode_id)->where('kelas_id',$data['guru']->kelas_id)->where('mapel_id',$data['guru']->mapel_id)->whereDate('jadwal','=',date('Y-m-d', strtotime($request->jadwal)))->where('active',1)->get();
+        $data['date'] = date('m/d/Y', strtotime($request->jadwal));
+        // dd(date('Y-m-d H', strtotime('+7 hours')));
+        return view('beken.absen.search',$data);
+
+    }
 }

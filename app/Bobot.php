@@ -8,9 +8,6 @@ class Bobot extends Model
 {
 
     protected $table = 'bobot_nilai';
-    protected $fillable = ['nama','persentase'];
-    //
-    protected $table = 'bobot_nilai';
 
     protected $fillable = [
         'nama',

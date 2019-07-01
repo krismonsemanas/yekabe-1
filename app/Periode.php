@@ -42,4 +42,8 @@ class Periode extends Model
     {
         return $this->semester." - ".$this->tahun_ajaran;
     }
+
+    public function Jadwal() {
+        return $this->hasMany('App\Jadwal','periode_id');
+    }
 }

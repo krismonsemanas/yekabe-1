@@ -1,19 +1,19 @@
 @extends('tenpureto.beken.index')
 
 @section('seo-title')
-	Absen
+	Jadwal
 @endsection
 
 @section('title')
   <h1>
-    Absen
-    <small>Info Absen</small>
+    Jadwal
+    <small>Info Jadwal</small>
   </h1>
 @endsection
 
 @section('breadcrumb')
-  <li><a href="#"><i class="fa fa-dashboard"></i> Absen</a></li>
-  <li class="active">Info Absen</li>
+  <li><a href="#"><i class="fa fa-dashboard"></i> Jadwal</a></li>
+  <li class="active">Info Jadwal</li>
 @endsection
 
 @push('css')
@@ -23,6 +23,11 @@
     <link href="{{asset('tenpureto/sweetalert/sweetalert.css')}}" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    <style>
+        .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
+            width: 100%;
+        }
+    </style>
 @endpush
 
 @section('main')
@@ -64,9 +69,12 @@
               <!-- END Success Alert -->
               {{session()->forget('delete')}}
               @endif
+              <div style="margin:10px;">
+                <a href="/manage/jadwal/new" class="btn btn-block btn-primary btn-lg">Tambah Jadwal</a>
+              </div>
               <hr>
             <div class="box-header">
-              <h3 class="box-title">Data Seluruh Mata Kuliah Yang Diampu</h3>
+              <h3 class="box-title">Data Seluruh Jadwal</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -74,21 +82,27 @@
                 <thead>
                 <tr>
                   <th class='text-center'>NO</th>
-                  <th class='text-center'>TAHUN AJARAN</th>
+                  <th class='text-center' style="width:30%;">TAHUN AJARAN</th>
                   <th class='text-center'>KELAS</th>
                   <th class='text-center'>MATA PELAJARAN</th>
+                  <th class='text-center'>HARI</th>
+                  <th class='text-center'>JAM</th>
                   <th class='text-center'>AKSI</th>
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach($guru as $no => $guru)
+                  @foreach($jadwal as $no => $jadwal)
                     <tr>
                       <td class='text-center'>{{$no+1}}</td>
-                      <td class='text-center'>{{$guru->periode->tahun_ajaran}} Semester {{$guru->periode->semester}}</td>
-                      <td class='text-center'>{{$guru->kelas->kelas}}</td>
-                      <td class='text-center'>{{$guru->mapel->mapel}}</td>
+                      <td class='text-center'>{{$jadwal->periode->tahun_ajaran}} Semester {{$jadwal->periode->semester}}</td>
+                      <td class='text-center'>{{$jadwal->kelas->kelas}}</td>
+                      <td class='text-center'>{{$jadwal->mapel->mapel}}</td>
+                      <td class='text-center'>{{$jadwal->hari}}</td>
+                      <td class='text-center'>{{$jadwal->jam}}</td>
                       <td class='text-center'>
-                        <a href="{{ url('guru/absen/kelas/'.$guru->id) }}" class="btn btn-warning btn-xs">LIHAT KELAS</a>
+                        <!-- <a target="_blank" href="{{ url('manage/'.$jadwal->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Lihat </a> -->
+                        <a href="{{ url('manage/jadwal/'.$jadwal->id.'/edit') }}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
+                        <button class="delete-data btn btn-danger btn-xs" data-photo-id="{{$jadwal->id}}"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
                   @endforeach
@@ -99,6 +113,8 @@
                     <th class='text-center'>TAHUN AJARAN</th>
                     <th class='text-center'>KELAS</th>
                     <th class='text-center'>MATA PELAJARAN</th>
+                    <th class='text-center'>HARI</th>
+                    <th class='text-center'>JAM</th>
                     <th class='text-center'>AKSI</th>
                 </tr>
                 </tfoot>
@@ -186,7 +202,61 @@
                 }); //column.data
                 }); //this.api
 
+                this.api().columns([4]).every(function() {
+                var column = this;
+                var select = $('<select class="selectpicker" data-show-content="false" data-none-selected-text="Hari" multiple><option value="" >Show All</option></select>')
+                    .appendTo($(column.header()).empty())//use $(column.footer() to append it to the table footer instead
+                    .on('changed.bs.select', function(e) {
+                    var val = $(this).val();
+                    var fVal = val.join("|")
+                    column
+                        .search(fVal, true, false)
+                        .draw();
+                    }); //select
+
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                }); //column.data
+                }); //this.api
+
             } //initComplete
         });
+    </script>
+    <script>
+      $('button.delete-data').click(function() {
+        var eventId = $(this).attr("data-photo-id");
+        deleteEvent(eventId);
+      });
+      function deleteEvent(eventId) {
+        swal({
+          title: "Apakah anda yakin?",
+          text: "Apakah anda yakin ingin menghapus?",
+          type: "warning",
+          showCancelButton: true,
+          closeOnConfirm: false,
+          confirmButtonText: "Ya",
+          confirmButtonColor: "#ec6c62"
+        }, function() {
+          $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+          $.ajax({
+            url: "jadwal/delete/" + eventId,
+            type: "post"
+          })
+          .done(function(data) {
+            swal("SUKSES!", "Data Berhasil Dihapus", "success");
+            setTimeout(function () {
+              location.reload();
+            }, 1500);
+
+          })
+          .error(function(data) {
+            swal("Oops", "Kami Tidak Dapat Terhubung Ke Server !", "error");
+          });
+        });
+      }
     </script>
 @endpush

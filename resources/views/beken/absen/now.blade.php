@@ -66,8 +66,27 @@
               @endif
               <hr>
             <div class="box-header">
-              <h3 class="box-title">Data Siswa Pada Kelas {{$guru->kelas->kelas}} Tahun Ajaran {{$guru->periode->tahun_ajaran}} Semester {{$guru->periode->semester}}</h3>
-              <h3>Mata Pelajaran <td class='text-center'>{{$guru->mapel->mapel}}</td></h3>
+                    <div class="table-responsive">
+
+                            <table class="table table-striped table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Periode</th>
+                                        <td>{{$guru->periode->tahun_ajaran}} Semester {{$guru->periode->semester}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kelas</th>
+                                        <td>{{$guru->kelas->kelas}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mata Pelajaran</th>
+                                        <td>{{$guru->mapel->mapel}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+              {{-- <h3 class="box-title">Data Siswa Pada Kelas {{$guru->kelas->kelas}} Tahun Ajaran {{$guru->periode->tahun_ajaran}} Semester {{$guru->periode->semester}}</h3>
+              <h3>Mata Pelajaran <td class='text-center'>{{$guru->mapel->mapel}}</td></h3> --}}
             </div>
               <hr>
             <!-- /.box-header -->

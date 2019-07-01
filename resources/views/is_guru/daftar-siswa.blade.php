@@ -27,7 +27,7 @@
 <div class="">
     <div style="padding:2rem" class="box">
         <div class="table-responsive">
-            
+
             <table class="table table-striped table-bordered">
                 <tbody>
                     <tr>

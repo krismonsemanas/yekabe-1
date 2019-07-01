@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pengumuman;
-use Validator; 
+use Validator;
 
 class PengumumanController extends Controller
 {
@@ -19,7 +19,6 @@ class PengumumanController extends Controller
         $data['pengumuman'] = Pengumuman::where('status',1)->get();
         return view('beken.pengumuman.index',$data);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +26,7 @@ class PengumumanController extends Controller
      */
     public function create()
     {
-        //        
+        //
         return view('beken.pengumuman.create');
     }
 
@@ -69,7 +68,7 @@ class PengumumanController extends Controller
         $data['pengumuman'] = Pengumuman::findOrFail($id);
         $data['pengumuman']['sampai'] = date('m/d/Y',strtotime($data['pengumuman']['sampai']));
         return view('beken.pengumuman.edit', $data);
-        
+
     }
 
     /**

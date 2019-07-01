@@ -87,6 +87,7 @@ class ProfilSiswaController extends Controller
         $data['city'] = City::where('city_province_id',$data['siswa']['province_id'])->get();
         $data['district'] = District::where('district_city_id',$data['siswa']['city_id'])->get();
         $data['village'] = Village::where('village_district_id',$data['siswa']['district_id'])->get();
+        $data['siswa']['tanggal_lahir'] = date('m/d/Y',strtotime($data['siswa']['tanggal_lahir']));
         return view('beken.siswa.edit', $data);
     }
 

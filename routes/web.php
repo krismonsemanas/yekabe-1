@@ -129,6 +129,7 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
         Route::post('murid/nilai/{nilai}/ubah','NilaiController@update')->name('guru.nilai.siswa.update');
         Route::post('murid/nilai/{nilai}/hapus','NilaiController@destroy')->name('guru.nilai.siswa.delete');
     });
+
     Route::get('/absen','AbsenGuruController@index');
     Route::get('/absen/kelas/{id}','AbsenGuruController@kelas');
     Route::post('/absen/kelas/{id}','AbsenGuruController@store');
@@ -137,11 +138,6 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::post('/absen/single', 'AbsenGuruController@single_store');
     Route::post('/absen/delete/{id}', 'AbsenGuruController@destroy');
     Route::post('/absen/search', 'AbsenGuruController@search');
-
-
-    Route::get('/absen/{kategori}/edit', 'AbsenGuruController@edit');
-    Route::patch('/absen/{kategori}', 'AbsenGuruController@update');
-
 
 });
 

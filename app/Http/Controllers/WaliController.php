@@ -55,6 +55,7 @@ class WaliController extends Controller
             'periode_id' => $request->periode_id,
             'karyawan_id' => $request->karyawan_id,
             'kelas_id' => $request->kelas_id,
+            'stats' => 1,
         ])->first();
         if($row){
             return redirect('manage/wali')->with('gagal','Data yang anda input sudah ada');
@@ -104,7 +105,8 @@ class WaliController extends Controller
             'periode_id' => $request->periode_id,
             'karyawan_id' => $request->karyawan_id,
             'kelas_id' => $request->kelas_id,
-            ['id','!=',$id]
+            ['id','!=',$id],
+            'stats' => 1,
         ])->first();
         if($row){
             return redirect('manage/wali')->with('gagal','Tidak bisa di update, karena data sudah ada');

@@ -35,4 +35,5 @@ class Guru extends Model
       return $this->belongsTo('App\Karyawan','karyawan_id');
     }
 
+
 }

@@ -13,10 +13,10 @@ class CreateBobotTable extends Migration
      */
     public function up()
     {
-        Schema::create('bobot', function (Blueprint $table) {
+        Schema::create('bobot_nilai', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('nilai_id');
-            $table->foreign('nilai_id')->references('id')->on('nilai');
+            $table->string('nama',50);
+            $table->tinyInteger('persentase');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateBobotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bobot');
+        Schema::dropIfExists('bobot_nilai');
     }
 }

@@ -49,9 +49,15 @@ class Siswa extends Model
       return $this->belongsTo('App\Village','village_id','village_id');
     }
 
+    public function nilai()
+    {
+      return $this->hasMany('App\Nilai');
+    }
+  
     public function Absen() {
         return $this->hasMany('App\Absen','data_murid_id');
     }
+  
     public function Murid() {
         return $this->hasMany('App\Murid','siswa_id');
     }

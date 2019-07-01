@@ -15,11 +15,11 @@ class CreateMuridTable extends Migration {
 		Schema::create('murid', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('periode_id');
-			$table->integer('kelas_id');
-			$table->integer('mapel_id');
-			$table->integer('siswa_id');
-			$table->integer('active');
+			$table->unsignedInteger('periode_id');
+			$table->unsignedInteger('kelas_id');
+			$table->unsignedInteger('mapel_id');
+			$table->unsignedInteger('siswa_id');
+			$table->tinyInteger('active');
 			$table->timestamps();
 		});
 	}

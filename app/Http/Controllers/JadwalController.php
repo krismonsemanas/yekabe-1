@@ -30,9 +30,9 @@ class JadwalController extends Controller
     public function create()
     {
         //
-        $data['periode'] = Periode::all()->pluck('full_name', 'id');
-        $data['kelas'] = Kelas::pluck('kelas', 'id');
-        $data['mapel'] = Mapel::pluck('mapel', 'id');
+        $data['periode'] = Periode::all()->where('stats',1)->pluck('full_name', 'id');
+        $data['kelas'] = Kelas::where('stats',1)->pluck('kelas', 'id');
+        $data['mapel'] = Mapel::where('stats',1)->pluck('mapel', 'id');
         return view('beken.jadwal.create',$data);
     }
 
@@ -44,7 +44,27 @@ class JadwalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate
+        $request->validate([
+            'periode_id' => 'required',
+            'mapel_id' => 'required',
+            'kelas_id' => 'required',
+            'jam' => 'required',
+            'hari' => 'required',
+        ]);
+        // cek data
+        $cekJadwal = Jadwal::where([
+            'periode_id' => $request->periode_id,
+            'mapel_id' => $request->mapel_id,
+            'kelas_id' => $request->kelas_id,
+            'jam' => $request->jam,
+            'hari' => $request->hari,
+            'stats' => 1,
+        ])->first();
+        if($cekJadwal){
+            return redirect('manage/jadwal')->with('error','Jadwal bentrok');
+        }
+        //proses insert
         $input = $request->all();
         $waktu = $input['jam'];
         // dd($jam);
@@ -85,9 +105,9 @@ class JadwalController extends Controller
     public function edit($id)
     {
         //
-        $data['periode'] = Periode::all()->pluck('full_name', 'id');
-        $data['kelas'] = Kelas::pluck('kelas', 'id');
-        $data['mapel'] = Mapel::pluck('mapel', 'id');
+        $data['periode'] = Periode::all()->where('stats',1)->pluck('full_name', 'id');
+        $data['kelas'] = Kelas::where('stats',1)->pluck('kelas', 'id');
+        $data['mapel'] = Mapel::where('stats',1)->pluck('mapel', 'id');
         $data['jadwal'] = Jadwal::findOrFail($id);
         $waktu = $data['jadwal']['jam'];
         $jam = explode(':',$waktu);
@@ -111,7 +131,27 @@ class JadwalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validate
+        $request->validate([
+            'periode_id' => 'required',
+            'mapel_id' => 'required',
+            'kelas_id' => 'required',
+            'jam' => 'required',
+            'hari' => 'required',
+        ]);
+        // cek data
+        $cekJadwal = Jadwal::where([
+            'periode_id' => $request->periode_id,
+            'mapel_id' => $request->mapel_id,
+            'kelas_id' => $request->kelas_id,
+            'jam' => $request->jam,
+            'hari' => $request->hari,
+            'stats' => 1,
+        ])->first();
+        if($cekJadwal){
+            return redirect('manage/jadwal')->with('error','Jadwal bentrok');
+        }
+        //proses update
         $input = $request->all();
         $waktu = $input['jam'];
         $jam_pm = explode(' ',$waktu);

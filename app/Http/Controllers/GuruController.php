@@ -31,9 +31,9 @@ class GuruController extends Controller
     public function create()
     {
         //
-        $data['periode'] = Periode::all()->pluck('full_name', 'id');
-        $data['kelas'] = Kelas::pluck('kelas', 'id');
-        $data['mapel'] = Mapel::pluck('mapel', 'id');
+        $data['periode'] = Periode::all()->where('stats',1)->pluck('full_name', 'id');
+        $data['kelas'] = Kelas::where('stats',1)->pluck('kelas', 'id');
+        $data['mapel'] = Mapel::where('stats',1)->pluck('mapel', 'id');
         $data['karyawan'] = Karyawan::join('login_app','login_app.id','=','karyawan.id_login')->where('login_app.status', 'ACTIVE')->where('karyawan.stats',1)->pluck('nama', 'karyawan.id');
         return view('beken.guru.create',$data);
     }
@@ -88,9 +88,9 @@ class GuruController extends Controller
     public function edit($id)
     {
         //
-        $data['periode'] = Periode::all()->pluck('full_name', 'id');
-        $data['kelas'] = Kelas::pluck('kelas', 'id');
-        $data['mapel'] = Mapel::pluck('mapel', 'id');
+        $data['periode'] = Periode::all()->where('stats',1)->pluck('full_name', 'id');
+        $data['kelas'] = Kelas::where('stats',1)->pluck('kelas', 'id');
+        $data['mapel'] = Mapel::where('stats',1)->pluck('mapel', 'id');
         $data['karyawan'] = Karyawan::join('login_app','login_app.id','=','karyawan.id_login')->where('login_app.status', 'ACTIVE')->where('karyawan.stats',1)->pluck('nama', 'karyawan.id');
         $data['guru'] = Guru::findOrFail($id);
         return view('beken.guru.edit', $data);

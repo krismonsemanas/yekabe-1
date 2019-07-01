@@ -69,6 +69,16 @@
               <!-- END Success Alert -->
               {{session()->forget('delete')}}
               @endif
+              @if(session('error'))
+              <!-- Success Alert -->
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><strong><i class="hi hi-check"></i> Perhatian</strong></h4>
+                    <p>{{ session('error') }}</p>
+                </div>
+              <!-- END Success Alert -->
+              {{session()->forget('error')}}
+              @endif
               <div style="margin:10px;">
                 <a href="/manage/jadwal/new" class="btn btn-block btn-primary btn-lg">Tambah Jadwal</a>
               </div>

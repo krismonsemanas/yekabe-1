@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mapel;
-use Validator; 
+use Validator;
 
 class MapelController extends Controller
 {
@@ -27,7 +27,7 @@ class MapelController extends Controller
      */
     public function create()
     {
-        //        
+        //
         return view('beken.mapel.create');
     }
 
@@ -39,7 +39,10 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'mapel' => 'required'
+        ]);
+        //proses input
         $input = $request->all();
     	  Mapel::create($input);
         return redirect('manage/mapel')->with('new','Data Baru Telah Dibuat.');
@@ -67,7 +70,7 @@ class MapelController extends Controller
         //
         $data['mapel'] = Mapel::findOrFail($id);
         return view('beken.mapel.edit', $data);
-        
+
     }
 
     /**

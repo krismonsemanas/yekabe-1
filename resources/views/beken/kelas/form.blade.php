@@ -8,10 +8,7 @@
 <div>
 	{!! Form::label('kelas', 'Kelas :', ['class' => 'control-label']) !!}
 	{!! Form::text('kelas', null, ['class' => 'form-control']) !!}
-
-  @if($errors->has('kelas'))
-    <span><i><b><font color="red">{{$errors->first('kelas')}}</font></b></i></span><br>
-  @endif
+    @error('kelas') <small class="text-danger">Inputan tidak boleh kosong!</small> @enderror()
 </div>
 <br>
 <div class="form-group">

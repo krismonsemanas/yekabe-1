@@ -34,11 +34,9 @@ class BeasiswaController extends Controller
         $request->validate([
             'judul' => 'required',
             'isi' => 'required',
-            'sampai' => 'required',
         ]);
         $input = $request->all();
         $input['kategori'] = 'beasiswa';
-        $input['sampai'] = date('Y-m-d',strtotime($input['sampai']));
     	Pengumuman::create($input);
         return redirect('manage/beasiswa')->with('new','Data Baru Telah Dibuat.');
     }
@@ -53,7 +51,7 @@ class BeasiswaController extends Controller
     {
         //
         $data['beasiswa'] = Pengumuman::findOrFail($id);
-        $data['beasiswa']['sampai'] = date('m/d/Y',strtotime($data['beasiswa']['sampai']));
+        // $data['beasiswa']['sampai'] = date('m/d/Y',strtotime($data['beasiswa']['sampai']));
         return view('beken.beasiswa.edit', $data);
 
     }
@@ -71,12 +69,10 @@ class BeasiswaController extends Controller
         $request->validate([
             'judul' => 'required',
             'isi' => 'required',
-            'sampai' => 'required',
         ]);
         $pengumuman = Pengumuman::findOrFail($id);
         $input = $request->all();
         $input['kategori'] = 'beasiswa';
-        $input['sampai'] = date('Y-m-d',strtotime($input['sampai']));
         $pengumuman->update($input);
         return redirect('manage/beasiswa')->with('edit','Data Telah Diubah.');
 

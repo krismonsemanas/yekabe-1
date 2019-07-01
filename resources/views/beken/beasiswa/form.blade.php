@@ -18,15 +18,6 @@
             {!! Form::textarea('isi', null, ['class' => 'form-control', 'id' => 'isi']) !!}
             @error('isi') <small class="text-danger">Tidak boleh kosong</small> @enderror
         </div>
-        {!! Form::label('sampai', 'Tanggal Berakhir Pengumuman Beasiswa :', ['class' => 'control-label']) !!}
-        <div class="input-group date">
-          <div class="input-group-addon">
-            <i class="fa fa-calendar"></i>
-          </div>
-            {!! Form::text('sampai', null, ['class' => 'form-control pull-right', 'id' => 'datepicker']) !!}
-            @error('sampai') <small class="text-danger">Tidak boleh kosong</small> @enderror
-        </div>
-        <br>
         <div class="form-group">
             {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
         </div>

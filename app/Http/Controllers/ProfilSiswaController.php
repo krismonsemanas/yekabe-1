@@ -178,6 +178,9 @@ class ProfilSiswaController extends Controller
         //
         $siswa = Siswa::findOrFail($id);
         $siswa->update(['stats' => '0']);
+
+        $user = User::where('id',$siswa->id_login);
+        $user->update(['status'=>'BLOCKED']);
         return redirect('manage/profil_siswa')->with('delete','Data Telah Dihapus.');
     }
 

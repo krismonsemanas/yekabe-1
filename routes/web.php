@@ -51,6 +51,13 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::patch('/pengumuman/{kategori}', 'PengumumanController@update');
     Route::post('/pengumuman/delete/{id}', 'PengumumanController@destroy');
 
+    // beasiswa
+    Route::get('/beasiswa','BeasiswaController@index');
+    Route::get('/beasiswa/new','BeasiswaController@create');
+    Route::post('/beasiswa','BeasiswaController@store');
+    Route::get('/beasiswa/{kategori}/edit', 'BeasiswaController@edit');
+    Route::patch('/beasiswa/{kategori}', 'BeasiswaController@update');
+    Route::post('/beasiswa/delete/{id}', 'BeasiswaController@destroy');
 
     Route::get('/periode','PeriodeController@index');
     Route::get('/periode/new','PeriodeController@create');

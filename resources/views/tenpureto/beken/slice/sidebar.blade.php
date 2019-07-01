@@ -88,6 +88,11 @@
               <i class="fa fa-bullhorn"></i> <span>Pengumuman</span>
             </a>
           </li>
+          <li class="{{ Request::is('manage/beasiswa') ? 'active' : '' }}">
+            <a href="/manage/beasiswa">
+              <i class="fa fa-dollar"></i> <span>Beasiswa</span>
+            </a>
+          </li>
 			@endif
             @if(auth()->user()->level == 'GURU')
                 <li class="{{ Request::is('guru') ? 'active' : '' }}">

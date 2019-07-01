@@ -163,7 +163,7 @@ class KaryawanController extends Controller
             'nomor_ijazah' => ['required'],
             'jurusan' => ['required'],
             'program_studi' => ['required'],
-            'photo' => 'image|max:2000|mimes:jpg,jpeg,png',
+            'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png',
         ]);
         //proses update
         $karyawan = Karyawan::findOrFail($id);

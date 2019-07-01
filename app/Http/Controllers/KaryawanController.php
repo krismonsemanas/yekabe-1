@@ -140,16 +140,13 @@ class KaryawanController extends Controller
         // validasi sebelum di update
         $request->validate([
             'nama' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string','min:8', 'max:255','unique:login_app'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:karyawan'],
-            'password' => ['required', 'string', 'min:8'],
-            'password_conf' => ['required','same:password'],
-            'phone' => ['required', 'numeric','unique:karyawan'],
+            'email' => 'required', 'string', 'email', 'max:255', 'unique:karyawan,email,'.$id,
+            'phone' => 'required', 'numeric','unique:karyawan,phone,'.$id,
             'province_id' => ['required'],
             'city_id' => ['required'],
             'district_id' => ['required'],
             'village_id' => ['required'],
-            'nip' => ['required','numeric','unique:karyawan'],
+            'nip' => 'required','numeric','unique:karyawan,nip,'.$id,
             'kode_pos' => ['required','numeric'],
             'tmt' => ['required'],
             'kelamin' => ['required'],
@@ -166,7 +163,7 @@ class KaryawanController extends Controller
             'nomor_ijazah' => ['required'],
             'jurusan' => ['required'],
             'program_studi' => ['required'],
-            'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png'
+            'photo' => 'image|max:2000|mimes:jpg,jpeg,png',
         ]);
         //proses update
         $karyawan = Karyawan::findOrFail($id);

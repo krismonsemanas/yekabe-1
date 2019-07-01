@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Pengumuman;
 use Validator;
 
-class PengumumanControllerr extends Controller
+class PengumumanController extends Controller
 {
     /**
      * Display a listing of the resource.

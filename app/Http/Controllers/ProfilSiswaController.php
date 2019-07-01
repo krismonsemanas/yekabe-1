@@ -10,7 +10,8 @@ use App\Province;
 use App\City;
 use App\District;
 use App\Village;
-
+use App\User;
+use Illuminate\Support\Facades\Hash;
 class ProfilSiswaController extends Controller
 {
     /**
@@ -45,9 +46,37 @@ class ProfilSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi tiap inputan
+        $request->validate([
+            'username' => ['required', 'string','min:8', 'max:255','unique:login_app'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:data_murid'],
+            'password' => ['required', 'string', 'min:8'],
+            'password_conf' => ['required','same:password'],
+            'phone' => ['required', 'numeric','unique:data_murid'],
+            'nama' => 'required|max:255',
+            'nisn' => 'required|numeric|unique:data_murid',
+            'kelamin' => 'required',
+            'agama' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'ayah' => 'required',
+            'ibu' => 'required',
+            'alamat' => 'required',
+            'kode_pos' => 'required',
+            'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png',
+        ]);
+        // getId
+        User::create([
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'level' => 'MURID',
+            'status' => 'ACTIVE',
+        ]);
+        $getId = User::orderBy('id','desc')->first();
+        //proses insert
         $input = $request->all();
         $input['tanggal_lahir'] = date('Y-m-d',strtotime($input['tanggal_lahir']));
+        $input['id_login'] = $getId['id'];
         if($request->hasFile('photo')){
             $photo = $request->file('photo');
             $ext = $photo->getClientOriginalExtension();
@@ -100,7 +129,22 @@ class ProfilSiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validasi tiap inputan
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255','unique:data_murid,email,'.$id],
+            'phone' => ['required', 'numeric','unique:data_murid,phone,'.$id],
+            'nama' => 'required|max:255',
+            'nisn' => 'required|numeric|unique:data_murid,nisn,'.$id,
+            'kelamin' => 'required',
+            'agama' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'ayah' => 'required',
+            'ibu' => 'required',
+            'alamat' => 'required',
+            'kode_pos' => 'required',
+            'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png',
+        ]);
         $siswa = Siswa::findOrFail($id);
         $input = $request->all();
 

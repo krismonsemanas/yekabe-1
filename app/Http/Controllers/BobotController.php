@@ -38,9 +38,13 @@ class BobotController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|unique:bobot_nilai',
+            'persentase' => 'required|numeric'
+        ]);
+        // Proses insert
         $input = $request->all();
-    	  Bobot::create($input);
+    	Bobot::create($input);
         return redirect('manage/bobot')->with('new','Data Baru Telah Dibuat.');
     }
 
@@ -77,7 +81,11 @@ class BobotController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama' => 'required|unique:bobot_nilai,nama,'.$id,
+            'persentase' => 'required|numeric'
+        ]);
+        //proses update
         $bobot = Bobot::findOrFail($id);
         $input = $request->all();
         $bobot->update($input);

@@ -30,10 +30,10 @@ class WaliController extends Controller
      */
     public function create()
     {
-        //
+        // proses input
         $data['periode'] = Periode::all()->pluck('full_name', 'id');
         $data['kelas'] = Kelas::pluck('kelas', 'id');
-        $data['guru'] = Karyawan::all()->pluck('nama', 'id');
+        $data['guru'] = Karyawan::join('login_app','login_app.id','=','karyawan.id_login')->where('login_app.status', 'ACTIVE')->where('karyawan.stats',1)->pluck('nama', 'karyawan.id');
         return view('beken.wali.create',$data);
     }
 
@@ -45,8 +45,21 @@ class WaliController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    	  Wali::create($request->all());
+        // validasi input
+        $request->validate([
+            'periode_id' => 'required',
+            'karyawan_id' => 'required',
+            'kelas_id' => 'required',
+        ]);
+        $row = Wali::where([
+            'periode_id' => $request->periode_id,
+            'karyawan_id' => $request->karyawan_id,
+            'kelas_id' => $request->kelas_id,
+        ])->first();
+        if($row){
+            return redirect('manage/wali')->with('gagal','Data yang anda input sudah ada');
+        }
+    	Wali::create($request->all());
         return redirect('manage/wali')->with('new','Data Baru Telah Dibuat.');
     }
 
@@ -72,7 +85,7 @@ class WaliController extends Controller
         //
         $data['periode'] = Periode::all()->pluck('full_name', 'id');
         $data['kelas'] = Kelas::pluck('kelas', 'id');
-        $data['guru'] = Karyawan::all()->pluck('nama', 'id');
+        $data['guru'] = Karyawan::join('login_app','login_app.id','=','karyawan.id_login')->where('login_app.status', 'ACTIVE')->where('karyawan.stats',1)->pluck('nama', 'karyawan.id');
         $data['wali'] = Wali::findOrFail($id);
         return view('beken.wali.edit', $data);
     }
@@ -86,8 +99,17 @@ class WaliController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $guru = Guru::findOrFail($id);
+        //validasi
+        $row = Wali::where([
+            'periode_id' => $request->periode_id,
+            'karyawan_id' => $request->karyawan_id,
+            'kelas_id' => $request->kelas_id,
+            ['id','!=',$id]
+        ])->first();
+        if($row){
+            return redirect('manage/wali')->with('gagal','Tidak bisa di update, karena data sudah ada');
+        }
+        $guru = Wali::findOrFail($id);
         $guru->update($request->all());
         return redirect('manage/wali')->with('edit','Data Telah Diubah.');
     }

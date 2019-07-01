@@ -62,6 +62,16 @@
               <!-- END Success Alert -->
               {{session()->forget('delete')}}
               @endif
+              @if(session('gagal'))
+              <!-- Success Alert -->
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><strong><i class="hi hi-check"></i> {{session('gagal')}}</strong></h4>
+                    <p>{{ session('delete') }}</p>
+                </div>
+              <!-- END Success Alert -->
+              {{session()->forget('delete')}}
+              @endif
               <div style="margin:10px;">
                 <a href="/manage/guru/new" class="btn btn-block btn-primary btn-lg">Tambah Guru Pada Tahun Ajaran Tertentu</a>
               </div>

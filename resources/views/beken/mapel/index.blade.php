@@ -64,7 +64,7 @@
               @endif
               <div style="margin:10px;">
                 <a href="/manage/mapel/new" class="btn btn-block btn-primary btn-lg">Tambah Mapel</a>
-              </div>  
+              </div>
               <hr>
             <div class="box-header">
               <h3 class="box-title">Data Seluruh Mapel</h3>
@@ -75,7 +75,7 @@
                 <thead>
                 <tr>
                   <th class='text-center'>NO</th>
-                  <th class='text-center'>KELAS</th>
+                  <th class='text-center'>MAPEL</th>
                   <th class='text-center'>AKSI</th>
                 </tr>
                 </thead>
@@ -94,12 +94,12 @@
                         <button class="delete-data btn btn-danger btn-xs" data-photo-id="{{$mapel->id}}"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
-                  @endforeach                
+                  @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
                   <th class='text-center'>NO</th>
-                  <th class='text-center'>KELAS</th>
+                  <th class='text-center'>MAPEL</th>
                   <th class='text-center'>AKSI</th>
                 </tr>
                 </tfoot>
@@ -133,8 +133,8 @@
       });
       function deleteEvent(eventId) {
         swal({
-          title: "Apakah anda yakin?", 
-          text: "Apakah anda yakin ingin menghapus?", 
+          title: "Apakah anda yakin?",
+          text: "Apakah anda yakin ingin menghapus?",
           type: "warning",
           showCancelButton: true,
           closeOnConfirm: false,
@@ -155,7 +155,7 @@
             setTimeout(function () {
               location.reload();
             }, 1500);
-            
+
           })
           .error(function(data) {
             swal("Oops", "We couldn't connect to the server!", "error");

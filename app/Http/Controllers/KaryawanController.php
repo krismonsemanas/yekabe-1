@@ -199,6 +199,8 @@ class KaryawanController extends Controller
         //
         $karyawan = Karyawan::findOrFail($id);
         $karyawan->update(['stats' => '0']);
+        $user = User::where('id',$karyawan->id_login);
+        $user->update(['status'=>'BLOCKED']);
         return redirect('manage/karyawan')->with('delete','Data Telah Dihapus.');
     }
 

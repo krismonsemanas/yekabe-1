@@ -27,7 +27,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>0</h3>
+              <h3>{{$countkelas}}</h3>
 
               <p>Jumlah Kelas Yang Diajar</p>
             </div>
@@ -41,7 +41,7 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                   <div class="inner">
-                    <h3>0</h3>
+                    <h3>{{$countmapel}}</h3>
 
                     <p>Jumlah Mata Pelajaran Yang Diampu</p>
                   </div>
@@ -55,7 +55,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>0</h3>
+              <h3>{{$countmurid}}</h3>
 
               <p>Jumlah Siswa Yang Diajar</p>
             </div>
@@ -95,25 +95,28 @@
                   <th class='text-center'>NO</th>
                   <th class='text-center'>KELAS</th>
                   <th class='text-center'>MATA PELAJARAN</th>
-                  <th class='text-center'>WAKTU</th>
+                  <th class='text-center'>HARI</th>
+                  <th class='text-center'>JAM</th>
                 </tr>
                 </thead>
                 <tbody>
-
-                    <tr>
-                      <td class='text-center'></td>
-                      <td class='text-center'></td>
-                      <td class='text-center'></td>
-                      <td class='text-center'></td>
-                    </tr>
-
+                    @foreach($jadwal as $no => $jadwal)
+                        <tr>
+                        <td class='text-center'>{{$no+1}}</td>
+                        <td class='text-center'>{{$jadwal->kelas->kelas}}</td>
+                        <td class='text-center'>{{$jadwal->mapel->mapel}}</td>
+                        <td class='text-center'>{{$jadwal->hari}}</td>
+                        <td class='text-center'>{{$jadwal->jam}}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
                     <th class='text-center'>NO</th>
                     <th class='text-center'>KELAS</th>
                     <th class='text-center'>MATA PELAJARAN</th>
-                    <th class='text-center'>WAKTU</th>
+                    <th class='text-center'>HARI</th>
+                    <th class='text-center'>JAM</th>
                 </tr>
                 </tfoot>
               </table>

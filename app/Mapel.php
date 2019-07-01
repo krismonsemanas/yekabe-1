@@ -27,4 +27,8 @@ class Mapel extends Model
     public function Absen() {
         return $this->hasMany('App\Absen','mapel_id');
     }
+
+    public function Jadwal() {
+        return $this->hasMany('App\Jadwal','mapel_id');
+    }
 }

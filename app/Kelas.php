@@ -31,4 +31,8 @@ class Kelas extends Model
     public function Wali() {
         return $this->hasMany('App\Wali','kelas_id');
     }
+
+    public function Jadwal() {
+        return $this->hasMany('App\Jadwal','kelas_id');
+    }
 }

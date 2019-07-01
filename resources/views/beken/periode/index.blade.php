@@ -62,9 +62,19 @@
               <!-- END Success Alert -->
               {{session()->forget('delete')}}
               @endif
+              @if(session('error'))
+              <!-- Success Alert -->
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><strong><i class="hi hi-check"></i> Perhatian!</strong></h4>
+                    <p>{{ session('error') }}</p>
+                </div>
+              <!-- END Success Alert -->
+              {{session()->forget('error')}}
+              @endif
               <div style="margin:10px;">
                 <a href="/manage/periode/new" class="btn btn-block btn-primary btn-lg">Tambah Periode</a>
-              </div>  
+              </div>
               <hr>
             <div class="box-header">
               <h3 class="box-title">Data Seluruh Periode</h3>
@@ -96,7 +106,7 @@
                         <button class="delete-data btn btn-danger btn-xs" data-photo-id="{{$periode->id}}"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
-                  @endforeach                
+                  @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
@@ -136,8 +146,8 @@
       });
       function deleteEvent(eventId) {
         swal({
-          title: "Apakah anda yakin?", 
-          text: "Apakah anda yakin ingin menghapus?", 
+          title: "Apakah anda yakin?",
+          text: "Apakah anda yakin ingin menghapus?",
           type: "warning",
           showCancelButton: true,
           closeOnConfirm: false,
@@ -158,7 +168,7 @@
             setTimeout(function () {
               location.reload();
             }, 1500);
-            
+
           })
           .error(function(data) {
             swal("Oops", "Kami Tidak Dapat Terhubung Ke Server !", "error");

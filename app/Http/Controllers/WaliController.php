@@ -31,8 +31,8 @@ class WaliController extends Controller
     public function create()
     {
         // proses input
-        $data['periode'] = Periode::all()->pluck('full_name', 'id');
-        $data['kelas'] = Kelas::pluck('kelas', 'id');
+        $data['periode'] = Periode::all()->where('stats',1)->pluck('full_name', 'id');
+        $data['kelas'] = Kelas::where('stats',1)->pluck('kelas', 'id');
         $data['guru'] = Karyawan::join('login_app','login_app.id','=','karyawan.id_login')->where('login_app.status', 'ACTIVE')->where('karyawan.stats',1)->pluck('nama', 'karyawan.id');
         return view('beken.wali.create',$data);
     }
@@ -84,8 +84,8 @@ class WaliController extends Controller
     public function edit($id)
     {
         //
-        $data['periode'] = Periode::all()->pluck('full_name', 'id');
-        $data['kelas'] = Kelas::pluck('kelas', 'id');
+        $data['periode'] = Periode::all()->where('stats',1)->pluck('full_name', 'id');
+        $data['kelas'] = Kelas::where('stats',1)->pluck('kelas', 'id');
         $data['guru'] = Karyawan::join('login_app','login_app.id','=','karyawan.id_login')->where('login_app.status', 'ACTIVE')->where('karyawan.stats',1)->pluck('nama', 'karyawan.id');
         $data['wali'] = Wali::findOrFail($id);
         return view('beken.wali.edit', $data);

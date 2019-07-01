@@ -32,10 +32,10 @@ class MuridController extends Controller
     public function create()
     {
         //
-        $data['periode'] = Periode::all()->pluck('full_name', 'id');
-        $data['kelas'] = Kelas::pluck('kelas', 'id');
-        $data['mapel'] = Mapel::pluck('mapel', 'id');
-        $data['siswa'] = Siswa::pluck('nama', 'id');
+        $data['periode'] = Periode::all()->where('stats',1)->pluck('full_name', 'id');
+        $data['kelas'] = Kelas::where('stats',1)->pluck('kelas', 'id');
+        $data['mapel'] = Mapel::where('stats',1)->pluck('mapel', 'id');
+        $data['siswa'] = Siswa::where('stats',1)->pluck('nama', 'id');
         return view('beken.murid.create',$data);
     }
 
@@ -89,10 +89,10 @@ class MuridController extends Controller
     public function edit($id)
     {
         //
-        $data['periode'] = Periode::all()->pluck('full_name', 'id');
-        $data['kelas'] = Kelas::pluck('kelas', 'id');
-        $data['mapel'] = Mapel::pluck('mapel', 'id');
-        $data['siswa'] = Siswa::pluck('nama', 'id');
+        $data['periode'] = Periode::all()->where('stats',1)->pluck('full_name', 'id');
+        $data['kelas'] = Kelas::where('stats',1)->pluck('kelas', 'id');
+        $data['mapel'] = Mapel::where('stats',1)->pluck('mapel', 'id');
+        $data['siswa'] = Siswa::where('stats',1)->pluck('nama', 'id');
         $data['murid'] = Murid::findOrFail($id);
         return view('beken.murid.edit', $data);
     }

@@ -39,7 +39,21 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi inputan
+        $request->validate([
+            'tahun_ajaran' => 'required',
+            'semester' => 'required'
+        ]);
+        // cek apakah data sudah ada
+        $cek = Periode::where([
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'semester' => $request->semester,
+            'stats' => 1
+        ])->first();
+        if($cek){
+            return redirect('manage/periode')->with('error','Data sudah ada!');
+        }
+        //proses input
         $input = $request->all();
     	  Periode::create($input);
         return redirect('manage/periode')->with('new','Data Baru Telah Dibuat.');
@@ -79,7 +93,21 @@ class PeriodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validasi inputan
+        $request->validate([
+            'tahun_ajaran' => 'required',
+            'semester' => 'required'
+        ]);
+        // cek apakah data sudah ada
+        $cek = Periode::where([
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'semester' => $request->semester,
+            'stats' => 1
+        ])->first();
+        if($cek){
+            return redirect('manage/periode')->with('error','Data sudah ada!');
+        }
+        //proses update
         $periode = Periode::findOrFail($id);
         $input = $request->all();
         $periode->update($input);

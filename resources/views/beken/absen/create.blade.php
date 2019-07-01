@@ -31,6 +31,25 @@
             <div class="box box-default">
             <div class="box">
             <div class="box-header">
+                    <div class="table-responsive">
+
+                            <table class="table table-striped table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Periode</th>
+                                        <td>{{$guru->periode->tahun_ajaran}} Semester {{$guru->periode->semester}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kelas</th>
+                                        <td>{{$guru->kelas->kelas}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mata Pelajaran</th>
+                                        <td>{{$guru->mapel->mapel}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><hr>
               <h3 class="box-title">Absen Perorangan</h3>
             </div>
             <!-- /.box-header -->

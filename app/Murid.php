@@ -9,9 +9,6 @@ class Murid extends Model
     protected $table = "murid";
     protected $fillable = ['periode_id','kelas_id','mapel_id','siswa_id','active'];
 
-    //
-    protected $table = 'murid';
-
       public function Periode() {
         return $this->belongsTo('App\Periode','periode_id');
       }
@@ -27,7 +24,7 @@ class Murid extends Model
       public function Siswa() {
         return $this->belongsTo('App\Siswa','siswa_id');
       }
-  
+
       public function nilai()
       {
         return $this->hasMany('App\Nilai');

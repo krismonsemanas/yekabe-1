@@ -70,6 +70,7 @@
                       </div>
                       <!-- /.input group -->
                     </div>
+                    @error('jam') <small class="text-danger">Tidak boleh dikosongkan!</small> @enderror
                     <!-- /.form group -->
                   </div>
             @endif

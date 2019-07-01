@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Kelas;
-use Validator; 
+use Validator;
 
 class KelasController extends Controller
 {
@@ -27,7 +27,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        //        
+        //
         return view('beken.kelas.create');
     }
 
@@ -39,9 +39,19 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi inpuatn
+        $request->validate(['kelas' => 'required']);
+        // cek data apakah data sudah ada
+        $cekKelas = Kelas::where([
+            'kelas' => $request->kelas,
+            'stats' => 1
+        ])->first();
+        if($cekKelas){
+            return redirect('manage/kelas')->with('error','Data kelas sudah ada');
+        }
+        //proses input
         $input = $request->all();
-    	  Kelas::create($input);
+    	Kelas::create($input);
         return redirect('manage/kelas')->with('new','Data Baru Telah Dibuat.');
     }
 
@@ -67,7 +77,7 @@ class KelasController extends Controller
         //
         $data['kelas'] = Kelas::findOrFail($id);
         return view('beken.kelas.edit', $data);
-        
+
     }
 
     /**
@@ -79,7 +89,17 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validasi inpuatn
+        $request->validate(['kelas' => 'required']);
+        // cek data apakah data sudah ada
+        $cekKelas = Kelas::where([
+            'kelas' => $request->kelas,
+            'stats' => 1
+        ])->first();
+        if($cekKelas){
+            return redirect('manage/kelas')->with('error','Data kelas sudah ada');
+        }
+        //proses update
         $kelas = Kelas::findOrFail($id);
         $input = $request->all();
         $kelas->update($input);

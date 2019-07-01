@@ -7,20 +7,14 @@
 
 <div>
 	{!! Form::label('nama', 'Nama Bobot :', ['class' => 'control-label']) !!}
-	{!! Form::text('nama', null, ['class' => 'form-control']) !!}
-
-  @if($errors->has('nama'))
-    <span><i><b><font color="red">{{$errors->first('nama')}}</font></b></i></span><br>
-  @endif
+    {!! Form::text('nama', null, ['class' => 'form-control']) !!}
+    @error('nama') <small class="text-danger">{{ $message }}</small> @enderror
 </div>
 <br>
 <div>
         {!! Form::label('persentase', 'Persentase :', ['class' => 'control-label']) !!}
         {!! Form::text('persentase', null, ['class' => 'form-control']) !!}
-
-      @if($errors->has('persentase'))
-        <span><i><b><font color="red">{{$errors->first('persentase')}}</font></b></i></span><br>
-      @endif
+        @error('persentase') <small class="text-danger">{{ $message }}</small> @enderror
     </div>
 <br>
 <div class="form-group">

@@ -7,11 +7,8 @@
 
 <div>
 	{!! Form::label('mapel', 'Mata Pelajaran :', ['class' => 'control-label']) !!}
-	{!! Form::text('mapel', null, ['class' => 'form-control']) !!}
-
-  @if($errors->has('mapel'))
-    <span><i><b><font color="red">{{$errors->first('mapel')}}</font></b></i></span><br>
-  @endif
+    {!! Form::text('mapel', null, ['class' => 'form-control']) !!}
+    @error('mapel') <small class="text-danger"> {{ $message }}</small> @enderror
 </div>
 <br>
 <div class="form-group">

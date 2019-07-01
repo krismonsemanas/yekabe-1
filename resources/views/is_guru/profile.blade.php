@@ -37,7 +37,7 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
-                  <form method="POST" action="{{route('guru.profil.update')}}">
+                  <form method="POST" action="{{route('guru.profil.update')}}" enctype="multipart/form-data" accept-charset="UTF-8">
                     <input type="hidden" name="_method" value="PATCH">
                     @csrf
                     <div class="col-md-6">
@@ -121,7 +121,53 @@
 
                       {{-- start province selection --}}
 
-                      <div class="form-group {{$errors->has('province_id') ? 'has-error' : ''}}">
+
+
+
+                        <div class="form-group {{$errors->has('province_id') ? 'has-error' : ''}}">
+                            <label for="">Provinsi</label>
+                            <select class="form-control" name="province_id" id="provinces">
+                            <option value="0" disable="true" selected="true">=== Pilih Provinsi ===</option>
+                                @foreach ($province as $key => $value)
+                                <option value="{{$value->province_id}}" @if($user->karyawan->province_id == $value->province_id) selected @endif >{{ $value->province_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group {{$errors->has('city_id') ? 'has-error' : ''}}">
+                            <label for="">Kabupaten</label>
+                            <select class="form-control" name="city_id" id="regencies">
+                            <option value="0" disable="true" selected="true">=== Pilih Kabupaten ===</option>
+                            @foreach ($city as $key => $value)
+                                <option value="{{$value->city_id}}" @if($user->karyawan->city_id == $value->city_id) selected @endif>{{ $value->city_name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group {{$errors->has('district_id') ? 'has-error' : ''}}">
+                            <label for="">Kecamatan</label>
+                            <select class="form-control" name="district_id" id="districts">
+                            <option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>
+                            @foreach ($district as $key => $value)
+                                <option value="{{$value->district_id}}" @if($user->karyawan->district_id == $value->district_id) selected @endif >{{ $value->district_name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group {{$errors->has('village_id') ? 'has-error' : ''}}">
+                            <label for="">Kelurahan</label>
+                            <select class="form-control" name="village_id" id="villages">
+                            <option value="0" disable="true" selected="true">=== Pilih Kelurahan ===</option>
+                            @foreach ($village as $key => $value)
+                                <option value="{{$value->village_id}}" @if($user->karyawan->village_id == $value->village_id) selected @endif >{{ $value->village_name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+
+
+
+
+
+
+
+                      {{-- <div class="form-group {{$errors->has('province_id') ? 'has-error' : ''}}">
                         <label for="">Provinsi</label>
                         <select class="form-control" name="province_id" id="provinces"  required>
                           <option disabled  requiredselected="true">=== Pilih Provinsi ===</option>
@@ -170,9 +216,15 @@
                           {{ $errors->first('village_id') }}
                         </span>
                         @endif
-                      </div>
+                      </div> --}}
 
                       {{-- end province selection --}}
+
+                      <div class="form-group {{$errors->has('photo') ? 'has-error' : ''}}">
+                            {!! Form::label('photo','Foto :') !!}
+                            {!! Form::file('photo') !!}
+                            @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
+                          </div>
 
                     </div>
                 <!-- column separator -->
@@ -332,7 +384,7 @@
   <script src="{{asset('tenpureto/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
   <!-- CK Editor -->
   <script src="{{asset('tenpureto/bower_components/ckeditor/ckeditor.js')}}"></script>
-  
+
   <script>
     $('.datepicker').datepicker({
       autoclose: true,
@@ -343,7 +395,7 @@
       $('#provinces').on('change', function(e){
         console.log("test");
         var province_id = e.target.value;
-        $.get('/manage/json-regencies?province_id=' + province_id,function(data) {
+        $.get('/json-regencies?province_id=' + province_id,function(data) {
           console.log(data);
           $('#regencies').empty();
           $('#regencies').append('<option value="0" disable="true" selected="true">=== Pilih Kabupaten ===</option>');
@@ -363,11 +415,11 @@
       $('#regencies').on('change', function(e){
         console.log(e);
         var regencies_id = e.target.value;
-        $.get('/manage/json-districts?regencies_id=' + regencies_id,function(data) {
+        $.get('/json-districts?regencies_id=' + regencies_id,function(data) {
           console.log(data);
           $('#districts').empty();
           $('#districts').append('<option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>');
-          
+
           $('#villages').empty();
           $('#villages').append('<option value="0" disable="true" selected="true">=== Pilih Kelurahan ===</option>');
 
@@ -381,7 +433,7 @@
       $('#districts').on('change', function(e){
         console.log(e);
         var districts_id = e.target.value;
-        $.get('/manage/json-village?districts_id=' + districts_id,function(data) {
+        $.get('/json-village?districts_id=' + districts_id,function(data) {
           console.log(data);
           $('#villages').empty();
           $('#villages').append('<option value="0" disable="true" selected="true">=== Pilih Kelurahan ===</option>');
@@ -395,7 +447,7 @@
       $('#villages').on('change', function(e){
         console.log(e);
         var villages_id = e.target.value;
-        $.get('/manage/json-pos?villages_id=' + villages_id,function(data) {
+        $.get('/json-pos?villages_id=' + villages_id,function(data) {
           console.log(data);
           $('#kode_pos').empty();
           $('#kode_pos').append('');

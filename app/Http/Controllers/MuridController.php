@@ -47,7 +47,24 @@ class MuridController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi input
+        $request->validate([
+            'periode_id' => 'required',
+            'kelas_id' => 'required',
+            'mapel_id' => 'required',
+            'siswa_id' => 'required',
+        ]);
+        // validate murid
+        $cek = Murid::where([
+            'periode_id' => $request->periode_id,
+            'kelas_id' => $request->kelas_id,
+            'mapel_id' => $request->mapel_id,
+            'siswa_id' => $request->siswa_id,
+            'active' => 1
+        ])->first();
+        if($cek){
+            return redirect('manage/murid')->with('error','Gagal ditambahkan, Data sudah ada!');
+        }
         Murid::create($request->all());
         return redirect('manage/murid')->with('new','Data Baru Telah Dibuat.');
     }
@@ -89,7 +106,24 @@ class MuridController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validasi input
+        $request->validate([
+            'periode_id' => 'required',
+            'kelas_id' => 'required',
+            'mapel_id' => 'required',
+            'siswa_id' => 'required',
+        ]);
+        // validate murid
+        $cek = Murid::where([
+            'periode_id' => $request->periode_id,
+            'kelas_id' => $request->kelas_id,
+            'mapel_id' => $request->mapel_id,
+            'siswa_id' => $request->siswa_id,
+            'active' => 1
+        ])->first();
+        if($cek){
+            return redirect('manage/murid')->with('error','Gagal di update, Data sudah ada!');
+        }  //
         $murid = Murid::findOrFail($id);
         $murid->update($request->all());
         return redirect('manage/murid')->with('edit','Data Telah Diubah.');

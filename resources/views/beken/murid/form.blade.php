@@ -12,10 +12,7 @@
   @else
     <p>Periode tidak ada. Silahkan menghubungi admin untuk membuat daftar Periode terlebih dahulu.</p>
   @endif
-
-  @if($errors->has('periode_id'))
-    <span><i><b><font color="red">{{$errors->first('periode_id')}}</font></b></i></span><br>
-  @endif
+  @error('periode_id') <small class="text-danger">Tidak boleh dikosongkan!</small> @enderror
 </div>
 <br>
 <div>
@@ -25,10 +22,7 @@
   @else
     <p>Kelas tidak ada. Silahkan menghubungi admin untuk membuat daftar Kelas terlebih dahulu.</p>
   @endif
-
-  @if($errors->has('kelas_id'))
-    <span><i><b><font color="red">{{$errors->first('kelas_id')}}</font></b></i></span><br>
-  @endif
+  @error('kelas_id') <small class="text-danger">Tidak boleh dikosongkan!</small> @enderror
 </div>
 <br>
 <div>
@@ -38,10 +32,7 @@
   @else
     <p>Mata Pelajaran tidak ada. Silahkan menghubungi admin untuk membuat daftar Mata Pelajaran terlebih dahulu.</p>
   @endif
-
-  @if($errors->has('mapel_id'))
-    <span><i><b><font color="red">{{$errors->first('mapel_id')}}</font></b></i></span><br>
-  @endif
+  @error('mapel_id') <small class="text-danger">Tidak boleh dikosongkan!</small> @enderror
 </div>
 <br>
 <div>
@@ -51,11 +42,9 @@
   @else
     <p>Data Siswa tidak ada. Silahkan menghubungi admin untuk membuat daftar Siswa terlebih dahulu.</p>
   @endif
-
-  @if($errors->has('siswa_id'))
-    <span><i><b><font color="red">{{$errors->first('siswa_id')}}</font></b></i></span><br>
-  @endif
+  @error('siswa_id') <small class="text-danger">Tidak boleh dikosongkan!</small> @enderror
 </div>
+    <input type="hidden" name="active" value="1">
 <br>
 
 <br>

@@ -124,6 +124,7 @@ class KaryawanController extends Controller
         $data['city'] = City::where('city_province_id',$data['karyawan']['province_id'])->get();
         $data['district'] = District::where('district_city_id',$data['karyawan']['city_id'])->get();
         $data['village'] = Village::where('village_district_id',$data['karyawan']['district_id'])->get();
+        $data['karyawan']['tanggal_lahir'] = date('m/d/Y',strtotime($data['karyawan']['tanggal_lahir']));
         return view('beken.karyawan.edit', $data);
     }
 

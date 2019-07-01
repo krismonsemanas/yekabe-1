@@ -34,7 +34,7 @@ class GuruController extends Controller
         $data['periode'] = Periode::all()->pluck('full_name', 'id');
         $data['kelas'] = Kelas::pluck('kelas', 'id');
         $data['mapel'] = Mapel::pluck('mapel', 'id');
-        $data['karyawan'] = Karyawan::pluck('nama', 'id');
+        $data['karyawan'] = Karyawan::join('login_app','login_app.id','=','karyawan.id_login')->where('login_app.status', 'ACTIVE')->where('karyawan.stats',1)->pluck('nama', 'karyawan.id');
         return view('beken.guru.create',$data);
     }
 
@@ -46,7 +46,24 @@ class GuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate form input data guru
+        $request->validate([
+            'periode_id' => 'required',
+            'kelas_id' => 'required',
+            'mapel_id' => 'required',
+            'karyawan_id' => 'required'
+        ]);
+        // cek data apakah data sudah ada di db
+        $cekRow = Guru::where([
+            'periode_id' => $request->periode_id,
+            'kelas_id' => $request->kelas_id,
+            'mapel_id' => $request->mapel_id,
+            'karyawan_id' => $request->karyawan_id,
+            'active' => '1'
+        ])->first();
+        if($cekRow){
+            return redirect('/manage/guru')->with('gagal','Tidak bisa ditambahkan, Data sudah ada');
+        }
     	Guru::create($request->all());
         return redirect('manage/guru')->with('new','Data Baru Telah Dibuat.');
     }
@@ -74,7 +91,7 @@ class GuruController extends Controller
         $data['periode'] = Periode::all()->pluck('full_name', 'id');
         $data['kelas'] = Kelas::pluck('kelas', 'id');
         $data['mapel'] = Mapel::pluck('mapel', 'id');
-        $data['karyawan'] = Karyawan::pluck('nama', 'id');
+        $data['karyawan'] = Karyawan::join('login_app','login_app.id','=','karyawan.id_login')->where('login_app.status', 'ACTIVE')->where('karyawan.stats',1)->pluck('nama', 'karyawan.id');
         $data['guru'] = Guru::findOrFail($id);
         return view('beken.guru.edit', $data);
     }
@@ -88,7 +105,26 @@ class GuruController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validasi sebelum di update
+         $request->validate([
+            'periode_id' => 'required',
+            'kelas_id' => 'required',
+            'mapel_id' => 'required',
+            'karyawan_id' => 'required'
+        ]);
+        // cek data apakah data sudah ada di db
+       // cek data apakah data sudah ada di db
+        $cekRow = Guru::where([
+            'periode_id' => $request->periode_id,
+            'kelas_id' => $request->kelas_id,
+            'mapel_id' => $request->mapel_id,
+            'karyawan_id' => $request->karyawan_id,
+            'active' => '1'
+        ])->first();
+        if($cekRow){
+            return redirect('/manage/guru')->with('gagal','Tidak bisa update, Data sudah ada');
+        }
+        //proses update
         $guru = Guru::findOrFail($id);
         $guru->update($request->all());
         return redirect('manage/guru')->with('edit','Data Telah Diubah.');

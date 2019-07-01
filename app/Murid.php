@@ -9,28 +9,27 @@ class Murid extends Model
     protected $table = "murid";
     protected $fillable = ['periode_id','kelas_id','mapel_id','siswa_id','active'];
 
-    public function siswa()
-    {
-        return $this->belongsTo('App\Siswa');
-    }
+    //
+    protected $table = 'murid';
 
-    public function mapel()
-    {
-        return $this->belongsTo('App\Mapel');
-    }
+      public function Periode() {
+        return $this->belongsTo('App\Periode','periode_id');
+      }
 
-    public function periode()
-    {
-        return $this->belongsTo('App\Periode');
-    }
+      public function Kelas() {
+        return $this->belongsTo('App\Kelas','kelas_id');
+      }
 
-    public function kelas()
-    {
-        return $this->belongsTo('App\Kelas');
-    }
+      public function Mapel() {
+        return $this->belongsTo('App\Mapel','mapel_id');
+      }
 
-    public function nilai()
-    {
+      public function Siswa() {
+        return $this->belongsTo('App\Siswa','siswa_id');
+      }
+  
+      public function nilai()
+      {
         return $this->hasMany('App\Nilai');
-    }
+      }
 }

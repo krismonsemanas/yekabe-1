@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class LoginController extends Controller
 {
     /*
@@ -19,8 +19,14 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
-
+    use AuthenticatesUsers {
+        logout as doLogout;
+    }
+    /**
+     *  where to redirect user after login
+     *  @var String
+     */
+    protected $redirectTo = '/manage/dashboard';
     /**
      * Create a new controller instance.
      *
@@ -32,16 +38,10 @@ class LoginController extends Controller
     }
 
     public function username() { return 'username'; }
-
-    public function redirectTo()
+    public function logout(Request $request)
     {
-        $user = Auth::user();
-        switch($user->level):
-            case 'ADMIN':
-                return 'manage/dashboard';
-            case 'GURU':
-                return route('dashboard.guru');
-        endswitch;
-        
+        $this->doLogout($request);
+        return redirect()->route('login');
     }
+   
 }

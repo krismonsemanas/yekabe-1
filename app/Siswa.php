@@ -28,6 +28,7 @@ class Siswa extends Model
         'village_id',
         'kode_pos',
         'photo',
+        'stats',
         'created_at',
         'updated_at'
     ];
@@ -52,10 +53,13 @@ class Siswa extends Model
     {
       return $this->hasMany('App\Nilai');
     }
-
-    public function murid()
-    {
-      return $this->hasMany('App\Murid');
+  
+    public function Absen() {
+        return $this->hasMany('App\Absen','data_murid_id');
+    }
+  
+    public function Murid() {
+        return $this->hasMany('App\Murid','siswa_id');
     }
 
 }

@@ -10,7 +10,9 @@ use App\Province;
 use App\City;
 use App\District;
 use App\Village;
-
+use App\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 class KaryawanController extends Controller
 {
     /**
@@ -36,17 +38,53 @@ class KaryawanController extends Controller
         $data['province'] = Province::all();
         return view('beken.karyawan.create',$data);
     }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */ 
+     */
     public function store(Request $request)
     {
-        //
+       $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string','min:8', 'max:255','unique:login_app'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:karyawan'],
+            'password' => ['required', 'string', 'min:8'],
+            'password_conf' => ['required','same:password'],
+            'phone' => ['required', 'numeric','unique:karyawan'],
+            'province_id' => ['required'],
+            'city_id' => ['required'],
+            'district_id' => ['required'],
+            'village_id' => ['required'],
+            'nip' => ['required','numeric','unique:karyawan'],
+            'kode_pos' => ['required','numeric'],
+            'tmt' => ['required'],
+            'kelamin' => ['required'],
+            'sk_pertama' => ['required'],
+            'nuptk' => ['required'],
+            'agama' => ['required'],
+            'nrg' => ['required'],
+            'sertifikat_pendidik' => ['required'],
+            'kode_sertifikat_mp' => ['required'],
+            'tempat_lahir' => ['required'],
+            'tanggal_lahir' => ['required'],
+            'ijazah_terakhir' => ['required'],
+            'alamat' => ['required'],
+            'nomor_ijazah' => ['required'],
+            'jurusan' => ['required'],
+            'program_studi' => ['required'],
+            'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png'
+        ]);
+        User::create([
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'level' => 'GURU',
+            'status' => 'ACTIVE',
+        ]);
+        $getId = User::orderBy('id','desc')->first();
         $input = $request->all();
+        $input['id_login'] = $getId['id'];
         $input['tanggal_lahir'] = date('Y-m-d',strtotime($input['tanggal_lahir']));
         if($request->hasFile('photo')){
             $photo = $request->file('photo');
@@ -61,7 +99,6 @@ class KaryawanController extends Controller
     	Karyawan::create($input);
         return redirect('manage/karyawan')->with('new','Data Baru Telah Dibuat.');
     }
-
     /**
      * Display the specified resource.
      *
@@ -87,6 +124,7 @@ class KaryawanController extends Controller
         $data['city'] = City::where('city_province_id',$data['karyawan']['province_id'])->get();
         $data['district'] = District::where('district_city_id',$data['karyawan']['city_id'])->get();
         $data['village'] = Village::where('village_district_id',$data['karyawan']['district_id'])->get();
+        $data['karyawan']['tanggal_lahir'] = date('m/d/Y',strtotime($data['karyawan']['tanggal_lahir']));
         return view('beken.karyawan.edit', $data);
     }
 
@@ -99,7 +137,35 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validasi sebelum di update
+        $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => 'required', 'string', 'email', 'max:255', 'unique:karyawan,email,'.$id,
+            'phone' => 'required', 'numeric','unique:karyawan,phone,'.$id,
+            'province_id' => ['required'],
+            'city_id' => ['required'],
+            'district_id' => ['required'],
+            'village_id' => ['required'],
+            'nip' => 'required','numeric','unique:karyawan,nip,'.$id,
+            'kode_pos' => ['required','numeric'],
+            'tmt' => ['required'],
+            'kelamin' => ['required'],
+            'sk_pertama' => ['required'],
+            'nuptk' => ['required'],
+            'agama' => ['required'],
+            'nrg' => ['required'],
+            'sertifikat_pendidik' => ['required'],
+            'kode_sertifikat_mp' => ['required'],
+            'tempat_lahir' => ['required'],
+            'tanggal_lahir' => ['required'],
+            'ijazah_terakhir' => ['required'],
+            'alamat' => ['required'],
+            'nomor_ijazah' => ['required'],
+            'jurusan' => ['required'],
+            'program_studi' => ['required'],
+            'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png',
+        ]);
+        //proses update
         $karyawan = Karyawan::findOrFail($id);
         $input = $request->all();
 
@@ -141,13 +207,13 @@ class KaryawanController extends Controller
         $regencies = City::where('city_province_id', '=', $provinces_id)->get();
         return response()->json($regencies);
     }
-  
+
      public function districts(){
         $regencies_id = Input::get('regencies_id');
         $districts = District::where('district_city_id', '=', $regencies_id)->get();
         return response()->json($districts);
     }
-  
+
     public function villages(){
         $districts_id = Input::get('districts_id');
         $villages = Village::where('village_district_id', '=', $districts_id)->get();

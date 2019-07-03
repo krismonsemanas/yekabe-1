@@ -52,7 +52,7 @@
                     <tr>
                         <td class="p-1">{{$pengajar->mapel->mapel}}</td>
                         <td class="p-1">{{$pengajar->kelas->kelas}}</td>
-                        <td class="p-1"><a class="btn btn-primary" href="{{route('guru.siswa.index',[$pengajar->mapel->id,$pengajar->kelas->id,$pengajar->periode->id])}}"><i class="fa fa-arrow-right"></i></a></td>
+                        <td class="p-1"><a class="btn btn-primary" href="{{route('guru.siswa.index',[$pengajar->kelas->id,$pengajar->mapel->id,$pengajar->periode->id])}}"><i class="fa fa-arrow-right"></i></a></td>
                     </tr>
                     @empty
                       <tr>

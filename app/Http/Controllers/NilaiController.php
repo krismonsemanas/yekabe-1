@@ -40,6 +40,7 @@ class NilaiController extends Controller
             ->where('mapel_id',$mapel->id)
             ->where('periode_id',$periode->id)
             ->get();
+            // dd($daftarMurid);
 
         return view('is_guru.daftar-siswa',compact(['kelas','mapel','periode','daftarMurid']));
     }
@@ -58,7 +59,7 @@ class NilaiController extends Controller
             ->where('karyawan_id',$user->karyawan->id)
             ->orderBy('nama')
             ->paginate(15);
-        
+
         return view('is_guru.daftar_nilai',compact(['daftarNilai','murid','siswa','bobot']));
     }
 

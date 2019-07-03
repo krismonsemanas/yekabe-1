@@ -96,6 +96,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'level' => 'GURU',
             'status' => 'PENDING',
+            'no_hp' => $data['phone']
         ]);
         $cekId = User::orderBy('id','desc')->first();
         if($data['photo']){

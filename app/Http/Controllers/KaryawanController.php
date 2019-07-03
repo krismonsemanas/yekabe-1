@@ -81,6 +81,7 @@ class KaryawanController extends Controller
             'password' => Hash::make($request->password),
             'level' => 'GURU',
             'status' => 'ACTIVE',
+            'no_hp' => $request->phone,
         ]);
         $getId = User::orderBy('id','desc')->first();
         $input = $request->all();
@@ -167,8 +168,13 @@ class KaryawanController extends Controller
         ]);
         //proses update
         $karyawan = Karyawan::findOrFail($id);
+        if($request->phone != $karyawan->phone){
+            // update no hp di login_app
+            User::where('id',$karyawan->id_login)->update([
+                'no_hp' => $request->phone
+            ]);
+        }
         $input = $request->all();
-
         $input['tanggal_lahir'] = date('Y-m-d',strtotime($input['tanggal_lahir']));
         if($request->hasFile('photo')){
             $exist = Storage::disk('photo')->exists($karyawan->photo);

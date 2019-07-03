@@ -110,6 +110,14 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::patch('/jadwal/{kategori}', 'JadwalController@update');
     Route::post('/jadwal/delete/{id}', 'JadwalController@destroy');
 
+    // Slider
+    Route::get('/slider','SlidersController@index');
+    Route::get('/slider/new','SlidersController@create');
+    Route::post('/slider','SlidersController@store');
+    Route::get('/slider/{id}/edit', 'SlidersController@edit');
+    Route::patch('/slider/{id}', 'SlidersController@update');
+    Route::post('/slider/delete/{id}', 'SlidersController@destroy');
+
 });
 Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::get('/','DashboardGuruController@index')->name('dashboard.guru');

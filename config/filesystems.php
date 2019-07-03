@@ -47,12 +47,16 @@ return [
             'driver' => 'local',
             'root' => public_path('photo/student'),
         ],
-        
+        'slider' => [
+            'driver' => 'local',
+            'root' => public_path('photo/sliders'),
+        ],
+
         'photo' => [
             'driver' => 'local',
             'root' => public_path('photo/teacher'),
         ],
-        
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

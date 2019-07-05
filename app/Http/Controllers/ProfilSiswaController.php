@@ -71,6 +71,7 @@ class ProfilSiswaController extends Controller
             'password' => Hash::make($request->password),
             'level' => 'MURID',
             'status' => 'ACTIVE',
+            'no_hp' => $request->phone
         ]);
         $getId = User::orderBy('id','desc')->first();
         //proses insert
@@ -146,8 +147,13 @@ class ProfilSiswaController extends Controller
             'photo' => 'required|image|max:2000|mimes:jpg,jpeg,png',
         ]);
         $siswa = Siswa::findOrFail($id);
+        if($request->phone != $siswa->phone){
+            // proses update no hp untuk login
+            User::where('id',$siswa->id_login)->update([
+                'no_hp' => $request->phone
+            ]);
+        }
         $input = $request->all();
-
         $input['tanggal_lahir'] = date('Y-m-d',strtotime($input['tanggal_lahir']));
         if($request->hasFile('photo')){
             $exist = Storage::disk('photo_siswa')->exists($siswa->photo);

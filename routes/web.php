@@ -118,6 +118,10 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::patch('/slider/{id}', 'SlidersController@update');
     Route::post('/slider/delete/{id}', 'SlidersController@destroy');
 
+    // master data
+    Route::get('/master','MasterController@index');
+    Route::post('/master','MasterController@store');
+
 });
 Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::get('/','DashboardGuruController@index')->name('dashboard.guru');

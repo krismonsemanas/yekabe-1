@@ -36,13 +36,33 @@
 </div>
 <br>
 <div>
-	{!! Form::label('siswa_id', 'Siswa :', ['class' => 'control-label']) !!}
+	{{-- {!! Form::label('siswa_id', 'Siswa :', ['class' => 'control-label']) !!}
 	@if(count($siswa)>0)
     {!! Form::select('siswa_id', $siswa, null, ['class' => 'form-control', 'id' => 'siswa_id', 'placeholder' => '=== Pilih Siswa ===']) !!}
   @else
     <p>Data Siswa tidak ada. Silahkan menghubungi admin untuk membuat daftar Siswa terlebih dahulu.</p>
   @endif
-  @error('siswa_id') <small class="text-danger">Tidak boleh dikosongkan!</small> @enderror
+  @error('siswa_id') <small class="text-danger">Tidak boleh dikosongkan!</small> @enderror --}}
+  <table  class="table table-bordered table-striped table-responsive">
+      <thead>
+          <tr>
+              <th class="text-center">
+                  <input type="checkbox" name="all" id="all">
+              </th>
+              <th>Nisn</th>
+              <th>Nama siswa</th>
+          </tr>
+      </thead>
+      <tbody>
+          @foreach ($siswa as $item)
+              <tr>
+                    <td class="text-center"><input type="checkbox" value="{{$item->id}}" name="siswa_id[]" id="siswa" class="siswa"></td>
+                    <td>{{$item->nisn}}</td>
+                    <td>{{$item->nama}}</td>
+              </tr>
+          @endforeach
+      </tbody>
+  </table>
 </div>
     <input type="hidden" name="active" value="1">
 <br>
@@ -51,3 +71,4 @@
 <div class="form-group">
 	{!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
 </div>
+

@@ -117,17 +117,20 @@
 			@endif
         <li class="header">PENGATURAN</li>
         @if(auth()->user()->level == 'ADMIN')
-          <li class="{{ Request::is('manage/periode/*') ? 'active' : '' }}{{ Request::is('manage/periode') ? 'active' : '' }} {{ Request::is('manage/periode/new') ? 'active' : '' }} {{ Request::is('manage/periode/edit') ? 'active' : '' }}"><a href="/manage/periode"><i class="fa fa-calendar text-aqua"></i> <span>Periode</span></a></li>
-          <li class="{{ Request::is('manage/kelas/*') ? 'active' : '' }} {{ Request::is('manage/kelas') ? 'active' : '' }} {{ Request::is('manage/kelas/new') ? 'active' : '' }} {{ Request::is('manage/kelas/edit') ? 'active' : '' }}"><a href="/manage/kelas"><i class="fa fa-institution text-yellow"></i> <span>Kelas</span></a></li>
-          <li class="{{ Request::is('manage/mapel/*') ? 'active' : '' }}{{ Request::is('manage/mapel') ? 'active' : '' }} {{ Request::is('manage/mapel/new') ? 'active' : '' }} {{ Request::is('manage/mapel/edit') ? 'active' : '' }}"><a href="/manage/mapel"><i class="fa fa-book text-green"></i> <span>Mapel</span></a></li>
-          <li class="{{ Request::is('manage/bobot/*') ? 'active' : '' }}{{ Request::is('manage/bobot') ? 'active' : '' }} {{ Request::is('manage/bobot/new') ? 'active' : '' }} {{ Request::is('manage/bobot/edit') ? 'active' : '' }}"><a href="/manage/bobot"><i class="fa fa-list text-red"></i> <span>Bobot</span></a></li>
-          <li class="{{ Request::is('manage/jadwal/*') ? 'active' : '' }}{{ Request::is('manage/jadwal') ? 'active' : '' }} {{ Request::is('manage/jadwal/new') ? 'active' : '' }} {{ Request::is('manage/jadwal/edit') ? 'active' : '' }}"><a href="/manage/jadwal"><i class="fa fa-calendar-check-o text-purple"></i> <span>Jadwal</span></a></li>
-          <li class="{{ Request::is('manage/slider/*') ? 'active' : '' }}{{ Request::is('manage/slider') ? 'active' : '' }} {{ Request::is('manage/slider/new') ? 'active' : '' }} {{ Request::is('manage/slider/edit') ? 'active' : '' }}"><a href="/manage/slider"><i class="fa fa-sliders text-white"></i> <span>Slider</span></a></li>
+            <li class="{{ Request::is('manage/maps/*') ? 'active' : ''}}"><a href="/manage/maps"><i class="fa fa-map text-blue"></i> <span>Maps</span></a></li>
+            <li class="{{ Request::is('manage/periode/*') ? 'active' : '' }}{{ Request::is('manage/periode') ? 'active' : '' }} {{ Request::is('manage/periode/new') ? 'active' : '' }} {{ Request::is('manage/periode/edit') ? 'active' : '' }}"><a href="/manage/periode"><i class="fa fa-calendar text-aqua"></i> <span>Periode</span></a></li>
+            <li class="{{ Request::is('manage/kelas/*') ? 'active' : '' }} {{ Request::is('manage/kelas') ? 'active' : '' }} {{ Request::is('manage/kelas/new') ? 'active' : '' }} {{ Request::is('manage/kelas/edit') ? 'active' : '' }}"><a href="/manage/kelas"><i class="fa fa-institution text-yellow"></i> <span>Kelas</span></a></li>
+            <li class="{{ Request::is('manage/mapel/*') ? 'active' : '' }}{{ Request::is('manage/mapel') ? 'active' : '' }} {{ Request::is('manage/mapel/new') ? 'active' : '' }} {{ Request::is('manage/mapel/edit') ? 'active' : '' }}"><a href="/manage/mapel"><i class="fa fa-book text-green"></i> <span>Mapel</span></a></li>
+            <li class="{{ Request::is('manage/bobot/*') ? 'active' : '' }}{{ Request::is('manage/bobot') ? 'active' : '' }} {{ Request::is('manage/bobot/new') ? 'active' : '' }} {{ Request::is('manage/bobot/edit') ? 'active' : '' }}"><a href="/manage/bobot"><i class="fa fa-list text-red"></i> <span>Bobot</span></a></li>
+            <li class="{{ Request::is('manage/jadwal/*') ? 'active' : '' }}{{ Request::is('manage/jadwal') ? 'active' : '' }} {{ Request::is('manage/jadwal/new') ? 'active' : '' }} {{ Request::is('manage/jadwal/edit') ? 'active' : '' }}"><a href="/manage/jadwal"><i class="fa fa-calendar-check-o text-purple"></i> <span>Jadwal</span></a></li>
+            <li class="{{ Request::is('manage/slider/*') ? 'active' : '' }}{{ Request::is('manage/slider') ? 'active' : '' }} {{ Request::is('manage/slider/new') ? 'active' : '' }} {{ Request::is('manage/slider/edit') ? 'active' : '' }}"><a href="/manage/slider"><i class="fa fa-sliders text-white"></i> <span>Slider</span></a></li>
         @endif
         @if(auth()->user()->level == 'GURU')
-          <li class="{{ Request::is('guru/profil-saya/*') ? 'active' : ''}}{{ Request::is('guru/profil-saya') ? 'active' : ''}}"><a href="{{route('guru.profil.edit')}}"><i class="fa fa-user text-aqua"></i> <span>Profil</span></a></li>
-          <li class="{{ Request::is('guru/ubah-password/*') ? 'active' : ''}}{{ Request::is('guru/ubah-password') ? 'active' : ''}}"><a href="{{route('guru.password.edit')}}"><i class="fa fa-lock text-aqua"></i> <span>Ubah Password</span></a></li>
+            <li class="{{ Request::is('guru/maps/*') ? 'active' : ''}}"><a href="/guru/maps"><i class="fa fa-map text-blue"></i> <span>Maps</span></a></li>
+            <li class="{{ Request::is('guru/profil-saya/*') ? 'active' : ''}}{{ Request::is('guru/profil-saya') ? 'active' : ''}}"><a href="{{route('guru.profil.edit')}}"><i class="fa fa-user text-aqua"></i> <span>Profil</span></a></li>
+            <li class="{{ Request::is('guru/ubah-password/*') ? 'active' : ''}}{{ Request::is('guru/ubah-password') ? 'active' : ''}}"><a href="{{route('guru.password.edit')}}"><i class="fa fa-lock text-aqua"></i> <span>Ubah Password</span></a></li>
         @endif
+
         <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-reply"></i> <span>LOGOUT | KELUAR</span></a></li>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf

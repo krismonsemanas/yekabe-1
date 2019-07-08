@@ -35,7 +35,7 @@ class MuridController extends Controller
         $data['periode'] = Periode::all()->where('stats',1)->pluck('full_name', 'id');
         $data['kelas'] = Kelas::where('stats',1)->pluck('kelas', 'id');
         $data['mapel'] = Mapel::where('stats',1)->pluck('mapel', 'id');
-        $data['siswa'] = Siswa::where('stats',1)->pluck('nama', 'id');
+        $data['siswa'] = Siswa::where('stats',1)->select('nama', 'id','nisn')->get();
         return view('beken.murid.create',$data);
     }
 
@@ -54,19 +54,36 @@ class MuridController extends Controller
             'mapel_id' => 'required',
             'siswa_id' => 'required',
         ]);
-        // validate murid
-        $cek = Murid::where([
-            'periode_id' => $request->periode_id,
-            'kelas_id' => $request->kelas_id,
-            'mapel_id' => $request->mapel_id,
-            'siswa_id' => $request->siswa_id,
-            'active' => 1
-        ])->first();
-        if($cek){
-            return redirect('manage/murid')->with('error','Gagal ditambahkan, Data sudah ada!');
+        $input = $request->all();
+        if(count($request->siswa_id) > 1){
+            foreach ($request->siswa_id as $row) {
+                $input['siswa_id'] = $row;
+                $cek = Murid::where([
+                    'periode_id' => $request->periode_id,
+                    'kelas_id' => $request->kelas_id,
+                    'mapel_id' => $request->mapel_id,
+                    'siswa_id' => $input['siswa_id'],
+                ])->get();
+                if(count($cek) <= 0){
+                    Murid::create($input);
+                }
+            }
+            return redirect('manage/murid')->with('new','Data Baru Telah Dibuat.');
+        }else{
+            // validate murid
+            $cek = Murid::where([
+                'periode_id' => $request->periode_id,
+                'kelas_id' => $request->kelas_id,
+                'mapel_id' => $request->mapel_id,
+                'siswa_id' => $request->siswa_id,
+                'active' => 1
+            ])->first();
+            if($cek){
+                return redirect('manage/murid')->with('error','Gagal ditambahkan, Data sudah ada!');
+            }
+            Murid::create($request->all());
+            return redirect('manage/murid')->with('new','Data Baru Telah Dibuat.');
         }
-        Murid::create($request->all());
-        return redirect('manage/murid')->with('new','Data Baru Telah Dibuat.');
     }
 
     /**

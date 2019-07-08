@@ -12,15 +12,16 @@ class MasterController extends Controller
     // tampilkan semua kelas lengkap beserta data
     public function index(){
         $data['jumKelas'] = Kelas::all()->where('stats',1);
+        $data['periode'] = Periode::where([
+            'stats' => 1,
+        ])->orderBy('id','desc')->first();
         $data['kelas'] = Wali::join('periode','wali.periode_id','=','periode.id')
                                 ->join('karyawan','karyawan.id','=','wali.karyawan_id')
                                 ->select('wali.kelas_id','wali.periode_id','periode.tahun_ajaran','periode.semester','karyawan.nama')
                                 ->where([
                                     'wali.stats' => 1,
+                                    // 'periode_id' => $data['periode']['id']
                                 ])->get();
-        $data['periode'] = Periode::where([
-                                    'stats' => 1,
-                                ])->orderBy('id','desc')->first();
         $data['karyawan'] = Karyawan::join('login_app','login_app.id','=','karyawan.id_login')->where([
             'login_app.status' => 'ACTIVE',
             'karyawan.stats' => 1

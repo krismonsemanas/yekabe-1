@@ -121,6 +121,9 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     // master data
     Route::get('/master','MasterController@index');
     Route::post('/master','MasterController@store');
+    // maps
+    Route::get('/maps','ControllerMaps@index');
+    Route::get('/maps/data','ControllerMaps@get');
 
 });
 Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
@@ -151,6 +154,9 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::post('/absen/delete/{id}', 'AbsenGuruController@destroy');
     Route::post('/absen/search', 'AbsenGuruController@search');
 
+    // maps
+    Route::get('/maps','ControllerMaps@index');
+    Route::get('/maps/data','ControllerMaps@get');
 });
 
 

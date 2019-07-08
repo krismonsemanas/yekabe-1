@@ -55,14 +55,16 @@
   <!-- CK Editor -->
   <script src="{{asset('tenpureto/bower_components/ckeditor/ckeditor.js')}}"></script>
   <script>
-    $(function () {
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    CKEDITOR.replace('isi')
-    })
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
+    $('#all').change(function() {
+        if(this.checked){
+            $('.siswa').each(function() {
+                this.checked = true;
+            })
+        }else{
+            $('.siswa').each(function() {
+                this.checked = false;
+            })
+        }
+    });
   </script>
 @endpush

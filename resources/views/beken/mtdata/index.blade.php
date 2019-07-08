@@ -78,7 +78,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                   <?php $count = 0; $countKelas = 0; $countSiswa = 0; $i=0?>
+                   <?php $count = 0; $countKelas = 0; $countPeriode=0;$countSiswa = 0; $i=0?>
                    @foreach ($jumKelas as $rowKelas)
                         <?php $countKelas = $countKelas+1 ?>
                         <tr>
@@ -89,18 +89,26 @@
                             <td class="text-center">
                                 @foreach ($kelas as $item)
                                     @if ($rowKelas->id == $item->kelas_id)
+                                        <?php $count = $count+1 ?>
+                                        @if($periode->id == $item->periode_id)
                                             {{$item->tahun_ajaran}} Semester {{$item->semester}}
-                                            <?php $count = $count+1 ?>
+                                        @elseif($periode->id != $item->periode_id)
+                                            <div class="label label-danger">Tahun ajaran tidak sama dengan {{$periode->tahun_ajaran}} Semester {{$periode->semester}}</div>
+                                        @endif
                                     @endif
                                 @endforeach
                                 @if ($countKelas > $count)
-                                    <div class="label label-danger">Belum ada periode kelas ini</div>
+                                <div class="label label-danger">Tahun ajaran tidak sama dengan {{$item->tahun_ajaran}} Semester {{$item->semester}}</div>
                                 @endif
                             </td>
                             <td>
                                 @foreach ($kelas as $item)
                                     @if ($rowKelas->id == $item->kelas_id)
+                                        @if($periode->id == $item->periode_id)
                                             {{$item->nama}}
+                                        @elseif($periode->id != $item->periode_id)
+                                            <div class="label label-danger">Belum ada wali kelas untuk kelas ini</div>
+                                        @endif
                                     @endif
                                 @endforeach
                                 @if ($countKelas > $count)
@@ -110,8 +118,12 @@
                             <td class="text-center">
                                 @foreach ($kelas as $item)
                                     @if ($rowKelas->id == $item->kelas_id)
-                                        <a href="" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
-                                        <a href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                                        @if ($periode->id == $item->periode_id)
+                                            <a href="" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
+                                            <a href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                                        @elseif($periode->id != $item->periode_id)
+                                        <a href="#" data-toggle="modal" data-target="#modalDefault" data-kelas_id="{{$rowKelas->id}}" class="btn btn-primary btn-xs">Tambah Wali</a>
+                                        @endif
                                     @endif
                                 @endforeach
                                 @if ($countKelas > $count)

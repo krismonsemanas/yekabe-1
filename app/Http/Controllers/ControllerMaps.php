@@ -14,7 +14,7 @@ class ControllerMaps extends Controller
         date_default_timezone_get("Asia/Jakarta");
         $date = date('Y-m-d');
         $data = DB::table('absent_harian')->join('data_murid','data_murid.id' ,'=','absent_harian.data_murid_id')
-                    ->where('absent_harian.datetime_absent','like',$date)->get();
+        ->where('absent_harian.datetime_absent','like',"%$date%")->get();
         return response()->json($data);
     }
 }

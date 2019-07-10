@@ -95,6 +95,8 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::get('/murid/{kategori}/edit', 'MuridController@edit');
     Route::patch('/murid/{kategori}', 'MuridController@update');
     Route::post('/murid/delete/{id}', 'MuridController@destroy');
+    Route::get('/murid/kelas','KelasController@jsonKelas');
+    Route::get('/murid/siswa','ProfilSiswaController@jsonSiswa');
 
     Route::get('/bobot','BobotController@index');
     Route::get('/bobot/new','BobotController@create');
@@ -118,9 +120,6 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::patch('/slider/{id}', 'SlidersController@update');
     Route::post('/slider/delete/{id}', 'SlidersController@destroy');
 
-    // master data
-    Route::get('/master','MasterController@index');
-    Route::post('/master','MasterController@store');
     // maps
     Route::get('/maps','ControllerMaps@index');
     Route::get('/maps/data','ControllerMaps@get');

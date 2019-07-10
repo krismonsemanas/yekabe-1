@@ -189,7 +189,14 @@ class ProfilSiswaController extends Controller
         $user->update(['status'=>'BLOCKED']);
         return redirect('manage/profil_siswa')->with('delete','Data Telah Dihapus.');
     }
-
+    public function jsonSiswa(){
+        $siswa = Siswa::join('murid','murid.siswa_id','=','data_murid.id')->where([
+            'murid.active'=>1,
+            'data_murid.stats' => 1,
+            ['data_murid.id','!=','murid.siswa_id']
+            ])->select('data_murid.id','data_murid.nama','data_murid.nisn')->get();
+        return response()->json($siswa);
+    }
     public function regencies(){
         $provinces_id = Input::get('province_id');
         $regencies = City::where('city_province_id', '=', $provinces_id)->get();

@@ -87,11 +87,6 @@
               <i class="fa fa-bullhorn"></i> <span>Pengumuman</span>
             </a>
           </li>
-          <li class="{{ Request::is('manage/master/*') ? 'active' : '' }}{{ Request::is('manage/master') ? 'active' : '' }}">
-            <a href="/manage/master">
-              <i class="fa fa-cogs"></i> <span>Manajemen Kelas</span>
-            </a>
-          </li>
           <li class="{{ Request::is('manage/beasiswa/*') ? 'active' : '' }}{{ Request::is('manage/beasiswa') ? 'active' : '' }}">
             <a href="/manage/beasiswa">
               <i class="fa fa-dollar"></i> <span>Beasiswa</span>

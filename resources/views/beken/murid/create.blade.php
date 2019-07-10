@@ -51,6 +51,8 @@
 
 @push('js')
   <!-- bootstrap datepicker -->
+  <script src="{{asset('tenpureto/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('tenpureto/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
   <script src="{{asset('tenpureto/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
   <!-- CK Editor -->
   <script src="{{asset('tenpureto/bower_components/ckeditor/ckeditor.js')}}"></script>
@@ -66,5 +68,34 @@
             })
         }
     });
+    $('#allMapel').change(function() {
+        if(this.checked){
+            $('.mapel').each(function() {
+                this.checked = true;
+            })
+        }else{
+            $('.mapel').each(function() {
+                this.checked = false;
+            })
+        }
+    });
+    $('#siswa').DataTable();
+    $('#periode_id').change(function() {
+        if($(this).val() == 0){
+            $('#kelas').hide();
+        }else{
+            $('#kelas').show();
+        }
+    })
+    $('#kelas_id').change(function() {
+        if($(this).val() == 0){
+            $('#mapel').hide();
+            $('#data-siswa').hide()
+        }else{
+            $('#mapel').show();
+            $('#data-siswa').show();
+        }
+    })
+    $()
   </script>
 @endpush

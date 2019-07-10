@@ -120,4 +120,8 @@ class KelasController extends Controller
         $kelas->update(['stats' => '0']);
         return redirect('manage/kelas')->with('delete','Data Telah Dihapus.');
     }
+    public function jsonkelas() {
+        $kelas = Kelas::all();
+        return response()->json($kelas);
+    }
 }

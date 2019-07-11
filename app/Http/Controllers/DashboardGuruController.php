@@ -15,7 +15,7 @@ class DashboardGuruController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $periode = Periode::where('stats',1)->last();
+        $periode = Periode::where('stats',1)->get()->last();
         $karyawan = Karyawan::where('id_login',$user_id)->first();
         $mapel = Guru::where('periode_id',$periode->id)->where('karyawan_id',$karyawan->id)->pluck('mapel_id');
         $data['countmapel'] = $mapel->count();

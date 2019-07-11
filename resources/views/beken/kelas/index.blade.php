@@ -80,7 +80,7 @@
               <h3 class="box-title">Data Seluruh Kelas</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>

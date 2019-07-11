@@ -65,7 +65,7 @@
               {{session()->forget('delete')}}
               @endif
               <hr>
-            <div class="box-header">
+            <div class="box-header table-responsive">
               <h3 class="box-title">Data Seluruh Mata Kuliah Yang Diampu</h3>
             </div>
             <!-- /.box-header -->

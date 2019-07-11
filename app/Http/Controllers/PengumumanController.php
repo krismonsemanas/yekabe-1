@@ -16,7 +16,7 @@ class PengumumanController extends Controller
     public function index()
     {
         //
-        $data['pengumuman'] = Pengumuman::where('status',1)->get();
+        $data['pengumuman'] = Pengumuman::where(['kategori'=>'pengumuman'])->get();
         return view('beken.pengumuman.index',$data);
     }
     /**

@@ -64,13 +64,13 @@
               @endif
               <div style="margin:10px;">
                 <a href="/manage/profil_siswa/new" class="btn btn-block btn-primary btn-lg">Tambah Data</a>
-              </div>  
+              </div>
               <hr>
             <div class="box-header">
               <h3 class="box-title">Data Seluruh Siswa</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -135,7 +135,7 @@
                   <tr>
                     <td class="text-center" colspan="3">
                       <div style="padding-left:100px;padding-right:100px;padding-bottom:20px;">
-                          <img class="imej" src="" style="width:100%;">      
+                          <img class="imej" src="" style="width:100%;">
                       </div>
                     </td>
                   </tr>
@@ -259,8 +259,8 @@
         });
         function deleteEvent(eventId) {
           swal({
-            title: "Apakah anda yakin?", 
-            text: "Apakah anda yakin ingin menghapus?", 
+            title: "Apakah anda yakin?",
+            text: "Apakah anda yakin ingin menghapus?",
             type: "warning",
             showCancelButton: true,
             closeOnConfirm: false,
@@ -281,7 +281,7 @@
               setTimeout(function () {
                 location.reload();
               }, 1500);
-              
+
             })
             .error(function(data) {
               swal("Oops", "Kami Tidak Dapat Terhubung Ke Server !", "error");

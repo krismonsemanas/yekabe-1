@@ -45,7 +45,11 @@
                                                 @elseif($item->level == 'MURID')
                                                     {{$item->siswa->nama}}
                                                 @elseif($item->level == 'ORANG TUA')
-                                                    {{$item->orangtua->siswa->ibu}}
+                                                    @if (count($item->orangtua) > 0)
+                                                        @if (count($item->orangtua->siswa) > 0)
+                                                            {{$item->orangtua->siswa->ayah}} | Orang Tua
+                                                        @endif
+                                                    @endif
                                                 @endif
                                             </option>
                                         @empty

@@ -62,5 +62,10 @@ class Siswa extends Model
     public function Murid() {
         return $this->hasMany('App\Murid','siswa_id');
     }
-
+    public function user(){
+        return $this->belongsTo('App\User','id_login');
+    }
+    public function orangtua(){
+        return $this->hasOne('App\OrangTua','data_murid_id');
+    }
 }

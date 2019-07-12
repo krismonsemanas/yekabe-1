@@ -121,6 +121,7 @@
             <li class="{{ Request::is('manage/slider/*') ? 'active' : '' }}{{ Request::is('manage/slider') ? 'active' : '' }} {{ Request::is('manage/slider/new') ? 'active' : '' }} {{ Request::is('manage/slider/edit') ? 'active' : '' }}"><a href="/manage/slider"><i class="fa fa-sliders text-white"></i> <span>Slider</span></a></li>
         @endif
         @if(auth()->user()->level == 'GURU')
+            <li class="{{ Request::is('guru/chat/*') ? 'active' : '' }}"><a href="/guru/chat"><i class="fa fa-envelope-open"></i> Chat</a></li>
             <li class="{{ Request::is('guru/maps/*') ? 'active' : ''}}"><a href="/guru/maps"><i class="fa fa-map text-blue"></i> <span>Maps</span></a></li>
             <li class="{{ Request::is('guru/profil-saya/*') ? 'active' : ''}}{{ Request::is('guru/profil-saya') ? 'active' : ''}}"><a href="{{route('guru.profil.edit')}}"><i class="fa fa-user text-aqua"></i> <span>Profil</span></a></li>
             <li class="{{ Request::is('guru/ubah-password/*') ? 'active' : ''}}{{ Request::is('guru/ubah-password') ? 'active' : ''}}"><a href="{{route('guru.password.edit')}}"><i class="fa fa-lock text-aqua"></i> <span>Ubah Password</span></a></li>

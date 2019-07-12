@@ -66,7 +66,7 @@ class Karyawan extends Model
     }
 
     public function User() {
-        return $this->belongsTo('App\User','id_user');
+        return $this->belongsTo('App\User','id_login');
     }
 
     public function Absen() {

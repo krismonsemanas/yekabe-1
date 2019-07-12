@@ -124,6 +124,7 @@ Route::group(['prefix' => 'manage', 'middleware'=>['auth','checkRole:ADMIN']], f
     Route::get('/maps','ControllerMaps@index');
     Route::get('/maps/data','ControllerMaps@get');
 
+
 });
 Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     Route::get('/','DashboardGuruController@index')->name('dashboard.guru');
@@ -156,6 +157,12 @@ Route::group(['prefix'=>'guru','middleware'=>['auth','can:guru']],function(){
     // maps
     Route::get('/maps','ControllerMaps@index');
     Route::get('/maps/data','ControllerMaps@get');
+
+    // Chat
+    Route::get('/chat','ChatController@index');
+    Route::get('/chat/balas/{id}','ChatController@balas');
+    Route::post('/chat','ChatController@kirim');
+    Route::get('/chat/baru','ChatController@tulis');
 });
 
 

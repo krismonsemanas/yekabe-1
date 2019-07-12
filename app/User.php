@@ -58,7 +58,13 @@ class User extends Authenticatable
 
     public function siswa()
     {
-        return $this->hasOne('App\User','id_login');
+        return $this->hasOne('App\Siswa','id_login');
+    }
+    public function messages(){
+        return $this->hasOne('App\Messages','from');
+    }
+    public function orangtua(){
+        return $this->hasOne('App\OrangTua','id_login_app');
     }
 
 }

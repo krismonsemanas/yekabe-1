@@ -39,19 +39,20 @@
                                     <select name="to" id="to" class="form-control">
                                         <option value="">-- Pilih salah satu --</option>
                                         @forelse ($user as $item)
-                                            <option value="{{$item->id}}">
-                                                @if ($item->level == "GURU")
-                                                    {{$item->karyawan->nama}}
-                                                @elseif($item->level == 'MURID')
-                                                    {{$item->siswa->nama}}
-                                                @elseif($item->level == 'ORANG TUA')
-                                                    @if (count($item->orangtua) > 0)
-                                                        @if (count($item->orangtua->siswa) > 0)
-                                                            {{$item->orangtua->siswa->ayah}} | Orang Tua
-                                                        @endif
-                                                    @endif
+                                            @if ($item->level == 'MURID')
+                                                @if ($item->siswa->stats == 1)
+                                                    <option value="{{$item->id}}">{{$item->siswa->nisn}} |{{$item->siswa->nama }} |Murid</option>
                                                 @endif
-                                            </option>
+                                            @elseif($item->level == 'ORANG TUA')
+                                            <?php $data['ortu'] = DB::table('data_murid')->where('no_hp_ortu_1','=',$item->no_hp)->orWhere('no_hp_ortu_2','=',$item->no_hp)->select('ayah')->get();?>
+                                                @foreach ($data['ortu'] as $row)
+                                                    <option value="{{$item->id}}">{{$row->ayah}} |Orang Tua Murid</option>
+                                                @endforeach
+                                            @elseif($item->level == 'GURU')
+                                                @if ($item->karyawan->stats == 1)
+                                                    <option value="{{$item->id}}">{{$item->karyawan->nama}} |Guru</option>
+                                                @endif
+                                            @endif
                                         @empty
                                             <small class="text-danger"><i></i> Tidak ada data</small>
                                         @endforelse

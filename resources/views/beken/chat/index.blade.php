@@ -57,7 +57,8 @@
                                                     @if ($row->user->level == "MURID")
                                                         {{$row->user->siswa->nama}} <div class="label label-warning pull-right">Murid</div>
                                                     @elseif($row->user->level == "ORANG TUA")
-                                                        {{$row->user->orangtua->siswa->ibu}} <div class="label label-info pull-right">Orang Tua</div>
+                                                        <?php $data['ortu'] = DB::table('data_murid')->where('no_hp_ortu_1','=',$row->user->no_hp)->orWhere('no_hp_ortu_2','=',$row->user->no_hp)->select('ayah')->get();?>
+                                                        {{$data['ortu'][0]->ayah}} <div class="label label-info pull-right">Orang Tua</div>
                                                     @elseif($row->user->level == "GURU")
                                                         {{$row->user->karyawan->nama}} <div class="label label-success pull-right">Guru</div>
                                                     @endif

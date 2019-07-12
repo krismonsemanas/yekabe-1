@@ -17,7 +17,7 @@ class ChatController extends Controller
         return view('beken.chat.new',['data'=>$id]);
     }
     public function tulis(){
-        $data['user'] = User::where('status','ACTIVE')->get();
+        $data['user'] = User::where('status','ACTIVE')->where('level','!=','ADMIN')->get();
         return view('beken.chat.tulis',$data);
     }
     public function kirim(Request $request){

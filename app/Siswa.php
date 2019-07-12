@@ -31,7 +31,9 @@ class Siswa extends Model
         'photo',
         'stats',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'no_hp_ortu_1',
+        'no_hp_ortu_2'
     ];
 
     public function City() {
